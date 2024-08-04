@@ -1,12 +1,12 @@
 ---
 heroImage: /src/assets/images/trips/mysore.jpg
-category: Blogs
-description: Mysore Tale
+category: Docs
+description: Test Tale
 pubDate: 2024-06-30T18:30:00.000Z
 draft: false
 tags:
   - trip
-title: Mysore Tale
+title: Mysore Tale (testing)
 ---
 
 ```
@@ -30,17 +30,66 @@ Mysore
 1. sdfasdf
 2. asdfsdf
 
-`ssdfsdd i love`
+```javascript
+function twoSum(numbers, target) {
+	let left = 0
+	let right = numbers.length - 1
+
+	while (left < right) {
+		const sum = numbers[left] + numbers[right]
+		if (sum === target) {
+			return [left + 1, right + 1] // Returning 1-based indices
+		} else if (sum < target) {
+			left++
+		} else {
+			right--
+		}
+	}
+
+	return []
+}
+```
+
+qerwqerqwerwqueroqweroq
 
 **asdfsd**
 
 _sdfsdf_
 
-<SButton>
-  asdf
+<SButton>Sbutton</SButton>
 
-asdfasdf
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
-asdfasdf
+def isPalindrome(head):
+    def reverse_list(head):
+        prev = None
+        while head:
+            next_node = head.next
+            head.next = prev
+            prev = head
+            head = next_node
+        return prev
 
-</SButton>
+    slow, fast = head, head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+    second_half = reverse_list(slow)
+    first_half = head
+
+    while second_half:
+        if first_half.val != second_half.val:
+            return False
+        first_half = first_half.next
+        second_half = second_half.next
+
+    return True
+
+```
+
+TEST - TEST - TEST
