@@ -25,8 +25,8 @@ importers:
         specifier: 2.0.3
         version: 2.0.3(astro@4.0.8(typescript@5.2.2))
       '@astrojs/sitemap':
-        specifier: 3.0.4
-        version: 3.0.4
+        specifier: 3.1.6
+        version: 3.1.6
       '@astrojs/tailwind':
         specifier: 5.1.0
         version: 5.1.0(astro@4.0.8(typescript@5.2.2))(tailwindcss@3.3.5)
@@ -145,8 +145,8 @@ packages:
   '@astrojs/rss@4.0.1':
     resolution: {integrity: sha512-fzXWsrAp17atO02OZJETM8e8McRz+dNWzMeO7ENb6xgod2nWj5mH/auPBFs1a9FzMUi1nOQmzSPHO1hxZZpkwQ==}
 
-  '@astrojs/sitemap@3.0.4':
-    resolution: {integrity: sha512-RSqiqs0oD8zTGaClHM0YB8n7e5En+Ihi+6qKthWf47pRkzHpENwlPGvKuEL0kUFXq+GzYot9e2JYH58gtr2q0w==}
+  '@astrojs/sitemap@3.1.6':
+    resolution: {integrity: sha512-1Qp2NvAzVImqA6y+LubKi1DVhve/hXXgFvB0szxiipzh7BvtuKe4oJJ9dXSqaubaTkt4nMa6dv6RCCAYeB6xaQ==}
 
   '@astrojs/tailwind@5.1.0':
     resolution: {integrity: sha512-BJoCDKuWhU9FT2qYg+fr6Nfb3qP4ShtyjXGHKA/4mHN94z7BGcmauQK23iy+YH5qWvTnhqkd6mQPQ1yTZTe9Ig==}
@@ -1017,6 +1017,7 @@ packages:
   '@humanwhocodes/config-array@0.11.13':
     resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}
     engines: {node: '>=10.10.0'}
+    deprecated: Use @eslint/config-array instead
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -1024,6 +1025,7 @@ packages:
 
   '@humanwhocodes/object-schema@2.0.1':
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
+    deprecated: Use @eslint/object-schema instead
 
   '@iarna/toml@2.2.5':
     resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
@@ -1229,6 +1231,7 @@ packages:
 
   '@motionone/vue@10.16.4':
     resolution: {integrity: sha512-z10PF9JV6SbjFq+/rYabM+8CVlMokgl8RFGvieSGNTmrkQanfHn+15XBrhG3BgUfvmTeSeyShfOHpG0i9zEdcg==}
+    deprecated: Motion One for Vue is deprecated. Use Oku Motion instead https://oku-ui.com/motion
 
   '@n1ru4l/push-pull-async-iterable-iterator@3.2.0':
     resolution: {integrity: sha512-3fkKj25kEjsfObL6IlKPAlHYPq/oYwUkkQ03zsTTiDjD7vg/RxjdiLeCydqtxHZP0JgsXL3D/X5oAkMGzuUp/Q==}
@@ -3601,9 +3604,11 @@ packages:
 
   glob@7.1.6:
     resolution: {integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   globals@11.12.0:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
@@ -3801,6 +3806,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -5614,6 +5620,7 @@ packages:
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rollup-plugin-visualizer@5.9.2:
@@ -5757,6 +5764,7 @@ packages:
 
   shikiji@0.6.13:
     resolution: {integrity: sha512-4T7X39csvhT0p7GDnq9vysWddf2b6BeioiN3Ymhnt3xcy9tXmDcnsEFVxX18Z4YcQgEE/w48dLJ4pPPUcG9KkA==}
+    deprecated: Shikiji is merged back to Shiki v1.0, please migrate over to get the latest updates
 
   side-channel@1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
@@ -5786,8 +5794,8 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  sitemap@7.1.1:
-    resolution: {integrity: sha512-mK3aFtjz4VdJN0igpIJrinf3EO8U8mxOPsTBzSsy06UtjZQJ3YY3o3Xa7zSc5nMqcMrRwlChHZ18Kxg0caiPBg==}
+  sitemap@7.1.2:
+    resolution: {integrity: sha512-ARCqzHJ0p4gWt+j7NlU5eDlIO9+Rkr/JhPFZKKQ1l5GCus7rJH4UdrlVAh0xC/gDS/Qir2UMxqYNHtsKr2rpCw==}
     engines: {node: '>=12.0.0', npm: '>=5.6.0'}
     hasBin: true
 
@@ -5866,6 +5874,9 @@ packages:
 
   stream-parser@0.3.1:
     resolution: {integrity: sha512-bJ/HgKq41nlKvlhccD5kaCr/P+Hu0wPNKPJOH7en+YrJu/9EgqUF+88w5Jb6KNcjOFMhfX4B2asfeAtIGuHObQ==}
+
+  stream-replace-string@2.0.0:
+    resolution: {integrity: sha512-TlnjJ1C0QrmxRNrON00JvaFFlNh5TTG00APw23j74ET7gkQpTASi6/L2fuiav8pzK715HXtUeClpBTw2NPSn6w==}
 
   streamroller@3.1.5:
     resolution: {integrity: sha512-KFxaM7XT+irxvdqSP1LGLgNWbYN7ay5owZ3r/8t77p+EtSUAfUgtl7be3xtqtOmGUl9K9YPO2ca8133RlTjvKw==}
@@ -6613,6 +6624,9 @@ packages:
   zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
 
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+
   zustand@3.7.2:
     resolution: {integrity: sha512-PIJDIZKtokhof+9+60cpockVOq05sJzHCriyvaLBmEJixseQ1a5Kdov6fWZfWOu5SK9c+FhH1jU0tntLxRJYMA==}
     engines: {node: '>=12.7.0'}
@@ -6717,10 +6731,11 @@ snapshots:
       fast-xml-parser: 4.3.2
       kleur: 4.1.5
 
-  '@astrojs/sitemap@3.0.4':
+  '@astrojs/sitemap@3.1.6':
     dependencies:
-      sitemap: 7.1.1
-      zod: 3.22.4
+      sitemap: 7.1.2
+      stream-replace-string: 2.0.0
+      zod: 3.23.8
 
   '@astrojs/tailwind@5.1.0(astro@4.0.8(typescript@5.2.2))(tailwindcss@3.3.5)':
     dependencies:
@@ -14600,7 +14615,7 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  sitemap@7.1.1:
+  sitemap@7.1.2:
     dependencies:
       '@types/node': 17.0.45
       '@types/sax': 1.2.6
@@ -14690,6 +14705,8 @@ snapshots:
       debug: 2.6.9
     transitivePeerDependencies:
       - supports-color
+
+  stream-replace-string@2.0.0: {}
 
   streamroller@3.1.5:
     dependencies:
@@ -15539,6 +15556,8 @@ snapshots:
       toposort: 2.0.2
 
   zod@3.22.4: {}
+
+  zod@3.23.8: {}
 
   zustand@3.7.2(react@17.0.2):
     optionalDependencies:
