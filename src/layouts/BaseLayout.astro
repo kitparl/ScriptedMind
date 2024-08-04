@@ -6,6 +6,25 @@ import ProviderTheme from '@/components/ProviderTheme'
 import ProviderAnimations from '@/components/ProviderAnimations'
 import TwSizeIndicator from '@/components/TwSizeIndicator'
 import EditBlog from '@/components/editBlog'
+
+export interface Props {
+	title: string
+	description: string
+	image: string
+	articleDate: string
+}
+
+const { title, description, image, articleDate } = Astro.props
+---
+
+<!-- ---
+import BaseHead from '@/components/BaseHead'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import ProviderTheme from '@/components/ProviderTheme'
+import ProviderAnimations from '@/components/ProviderAnimations'
+import TwSizeIndicator from '@/components/TwSizeIndicator'
+import EditBlog from '@/components/editBlog'
 const { title, description, image, articleDate } = Astro.props
 ---
 
@@ -31,5 +50,19 @@ const { title, description, image, articleDate } = Astro.props
 				margin-left: calc(100vw - 100%); /* prevent layout shift */
 			}
 		</style>
+	</body>
+</html> -->
+<html lang='en' class='scroll-smooth'>
+	<head>
+		<BaseHead title={title} description={description} ogImage={image} articleDate={articleDate} />
+		<ProviderTheme />
+		<ProviderAnimations />
+	</head>
+	<body class='bg-white text-stone-950 dark:bg-[#0a0910] dark:text-white'>
+		<Header />
+		<slot />
+		<Footer />
+		<TwSizeIndicator />
+		<EditBlog />
 	</body>
 </html>
