@@ -5,5 +5,5 @@ export const CATEGORIES = [
   'Docs',
   'Blogs',
   'Resources',
-  'Category 4'
+  'Programming'
 ] as const
