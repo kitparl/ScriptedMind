@@ -1,4 +1,4 @@
-import { defineConfig , squooshImageService} from 'astro/config'
+import { defineConfig, squooshImageService } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
@@ -6,10 +6,7 @@ import { remarkReadingTime } from './src/utils/readTime.ts'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://pranshu.tech', // Write here your website url
- image: {
-    service: squooshImageService(),
-  },
+  site: 'https://pranshu.tech',
   markdown: {
     remarkPlugins: [remarkReadingTime],
     drafts: true,
