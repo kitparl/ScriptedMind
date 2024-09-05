@@ -1,14 +1,9 @@
 name: Deploy to GitHub Pages
-
 on:
-  # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch’s name
   push:
     branches: [ main ]
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
-# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
   pages: write
@@ -20,26 +15,22 @@ jobs:
     steps:
       - name: Checkout your repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18.20.3
-
       - name: Install pnpm
-        run: npm install -g pnpm
-
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.6.0
       - name: Install dependencies
         run: pnpm install
-
       - name: Build the site
         run: pnpm run build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          name: build
-          path: ./dist # Adjust this path if your build output directory is different
+          path: ./dist
 
   deploy:
     needs: build
@@ -48,16 +39,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout your repository
-        uses: actions/checkout@v4
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          folder: ./dist # Adjust this path to match the build output directory
