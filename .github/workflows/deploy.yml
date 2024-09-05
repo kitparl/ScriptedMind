@@ -1,11 +1,14 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger the workflow on push to the `main` branch or manually via the Actions tab
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
   push:
     branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
+# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
   pages: write
@@ -15,31 +18,41 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout your repository using git
         uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.20.3'
+          node-version: 18.20.3
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Build the site
-        run: pnpm run build
+        uses: withastro/action@v2
+        with:
+          path: . # The root location of your Astro project
+          node-version: 18.20.3 # The specific version of Node.js to use
+          package-manager: pnpm@9.6.0 # The package manager to use
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build
-          path: ./dist # Adjust this path to where your build output is located
+          path: ./dist # Adjust this path if your build output directory is different
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout repository
+      - name: Checkout your repository using git
         uses: actions/checkout@v4
 
       - name: Download build artifacts
@@ -48,6 +61,7 @@ jobs:
           name: build
 
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
         with:
           folder: ./dist # Adjust this path to match the build output directory
