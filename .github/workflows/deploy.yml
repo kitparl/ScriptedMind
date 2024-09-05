@@ -33,11 +33,7 @@ jobs:
         run: pnpm install
 
       - name: Build the site
-        uses: withastro/action@v2
-        with:
-          path: . # The root location of your Astro project
-          node-version: 18.20.3 # The specific version of Node.js to use
-          package-manager: pnpm@9.6.0 # The package manager to use
+        run: pnpm run build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
