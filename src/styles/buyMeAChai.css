@@ -1,0 +1,63 @@
+.upi-button-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1em;
+  text-align: center;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.upi-button-container h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.upi-button-container img {
+  width: 150px;
+  height: auto;
+  margin: 10px 0;
+}
+
+.upi-button-container input,
+.upi-button-container button {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  width: calc(100% - 22px);
+}
+
+.upi-button-container button {
+  background: #007BFF;
+  color: #fff;
+  border: none;
+  transition: background 0.3s;
+}
+
+.upi-button-container button:hover {
+  background: #0056b3;
+}
+
+.options-container {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.options-container button {
+  background: #ddd;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  flex: 1;
+  max-width: 80px;
+}
+
+.options-container button.active {
+  background: #28a745;
+  color: #fff;
+}
