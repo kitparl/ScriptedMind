@@ -33,9 +33,6 @@ export default defineConfig({
     tailwind()
   ],
   vite: {
-    ssr: {
-      noExternal: ['qrcode'],
-    },
     optimizeDeps: {
       noDiscovery: true,
       include: [],
