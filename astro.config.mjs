@@ -12,9 +12,10 @@ export default defineConfig({
     mdx({
       syntaxHighlight: 'shiki',
       shikiConfig: {
-        experimentalThemes: {
-          light: 'solarized-light', // Change this to test different themes
-          dark: 'solarized-dark',   // Change this to test different themes
+        // defaultColor: false,
+        themes: {
+          light: 'one-light', // Change this to test different themes
+          dark: 'andromeeda',   // Change this to test different themes
         },
         wrap: true
       },
@@ -26,8 +27,8 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       themes: {
-        light: 'solarized-light', // Change this to test different themes
-        dark: 'solarized-dark',   // Change this to test different themes
+        light: 'one-light', // Change this to test different themes
+        dark: 'andromeeda',   // Change this to test different themes
       },
       wrap: true,
     },
