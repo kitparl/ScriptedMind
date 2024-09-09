@@ -1,5 +1,5 @@
 ---
-heroImage: /src/assets/images/computer/memory.jpeg
+heroImage: /src/assets/images/computer/RAM.jpg
 category: Programming
 description: >-
   Memory regions are like your brain's filing cabinets: each drawer holds
@@ -155,17 +155,19 @@ below visual breakdown
 
 ```markdown
 1. Initial State
+
    Stack:
    +-----------------+
    | Empty |
    +-----------------+
 
-Heap:
-+-----------------+
-| Empty |
-+-----------------+
+   Heap:
+   +-----------------+
+   | Empty |
+   +-----------------+
 
 2. After Creating Person Object
+
    Stack
    +-----------------+
    | Variable 'person' | <- Points to the `Person` object on the heap
@@ -173,13 +175,13 @@ Heap:
    | Return address | <- Points to the exit location
    +-----------------+
 
-Heap:
-+-----------------------------+
-| Person Object |
-+-----------------------------+
-| name: "Pranshu" |
-| age: 80 |
-+-----------------------------+
+   Heap:
+   +-----------------------------+
+   | Person Object |
+   +-----------------------------+
+   | name: "Pranshu" |
+   | age: 80 |
+   +-----------------------------+
 
 3. After the Person Object Fields are Initialized
 
@@ -277,6 +279,7 @@ Data Segment:
 +-----------------+
 
 2. After Class Loading:
+
    Data Segment:
    +-------------------------------+
    | Static Variable: |
@@ -284,6 +287,7 @@ Data Segment:
    +-------------------------------+
 
 3. During main Method Execution:
+
    Data Segment:
    +-------------------------------+
    | Static Variable: |
