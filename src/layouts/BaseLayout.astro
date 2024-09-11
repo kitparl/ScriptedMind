@@ -6,6 +6,7 @@ import ProviderTheme from '@/components/ProviderTheme'
 import ProviderAnimations from '@/components/ProviderAnimations'
 import TwSizeIndicator from '@/components/TwSizeIndicator'
 import EditBlog from '@/components/editBlog'
+import SentMailToSubscriber from '@/components/SentMailToSubscriber'
 
 export interface Props {
 	title: string
@@ -34,6 +35,7 @@ const { title, description, image, articleDate } = Astro.props
 		</main>
 		<TwSizeIndicator />
 		<EditBlog />
+		<SentMailToSubscriber />
 		<style>
 			body {
 				margin-left: calc(100vw - 100%); /* prevent layout shift */

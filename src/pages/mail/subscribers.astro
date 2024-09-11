@@ -1,0 +1,149 @@
+---
+/* This file will render when the route /mail/subscribers is accessed */
+---
+
+<section class='form-section'>
+	<h2>Submit Blog Details</h2>
+	<form id='blogForm'>
+		<div class='form-group'>
+			<label for='title'>Title:</label>
+			<input type='text' id='title' name='title' required />
+		</div>
+
+		<div class='form-group'>
+			<label for='url'>Blog URL:</label>
+			<input type='url' id='url' name='url' required />
+		</div>
+
+		<button type='submit' class='submit-btn'>Submit</button>
+	</form>
+</section>
+
+<script>
+	document.getElementById('blogForm').addEventListener('submit', async function (event) {
+		event.preventDefault() // Prevents the form from reloading the page
+		const title = document.getElementById('title').value
+		const url = document.getElementById('url').value
+
+		if (confirm('Are you sure you want to submit?')) {
+			alert(`Form submitted!\nTitle: ${title}\nURL: ${url}`)
+		} else {
+			alert('Submission canceled.')
+			return
+		}
+
+		try {
+			const response = await fetch('/api/sendEmail', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					title: title,
+					url: url
+				})
+			})
+
+			console.log('response', response)
+
+			if (response.ok) {
+				console.log('Email sent successfully:')
+				alert('Email sent successfully')
+				window.location.reload()
+			} else {
+				console.error('Failed to send email:')
+				alert('Failed to send email')
+			}
+		} catch (error) {
+			console.log('Error:', error)
+
+			alert('Failed to send email :', error)
+		}
+	})
+</script>
+
+<style>
+	/* Styling for the form section */
+	.form-section {
+		max-width: 400px;
+		margin: 0 auto;
+		padding: 20px;
+		background-color: #f9f9f9;
+		border: 1px solid #ddd;
+		border-radius: 10px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+
+	/* Styling for headings */
+	.form-section h2 {
+		text-align: center;
+		color: #333;
+		margin-bottom: 20px;
+		font-size: 1.5rem;
+		font-weight: bold;
+	}
+
+	/* Styling for the form group */
+	.form-group {
+		margin-bottom: 20px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* Styling for form labels */
+	.form-group label {
+		margin-bottom: 5px;
+		font-size: 1rem;
+		color: #555;
+	}
+
+	/* Styling for input fields */
+	.form-group input {
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		font-size: 1rem;
+		background-color: #fff;
+		transition: border-color 0.3s ease;
+	}
+
+	/* Focus state for inputs */
+	.form-group input:focus {
+		border-color: #4a90e2;
+		outline: none;
+	}
+
+	/* Styling for the submit button */
+	.submit-btn {
+		width: 100%;
+		padding: 10px;
+		font-size: 1rem;
+		font-weight: bold;
+		color: #fff;
+		background-color: #4a90e2;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+
+	/* Hover state for the submit button */
+	.submit-btn:hover {
+		background-color: #357ab8;
+	}
+
+	/* Responsive adjustments */
+	@media (max-width: 600px) {
+		.form-section {
+			padding: 15px;
+		}
+
+		.form-group input {
+			font-size: 0.9rem;
+		}
+
+		.submit-btn {
+			font-size: 0.9rem;
+		}
+	}
+</style>
