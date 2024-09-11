@@ -3,9 +3,14 @@ import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
 import react from '@astrojs/react';
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'hybrid',
+  adapter: node({
+    mode: 'standalone', // Set the mode to 'standalone'
+  }),
   site: 'https://pranshu.tech',
   integrations: [
     react(),
