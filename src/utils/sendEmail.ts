@@ -110,6 +110,6 @@ export async function sendEmail(options: { title: string; url: string }): Promis
 		console.log('Email sent:', response.message)
 	} catch (err) {
 		console.error('Error sending email:', err)
-		throw err // Re-throw the error to be handled by the caller
+		throw err
 	}
 }
