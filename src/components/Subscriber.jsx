@@ -38,26 +38,27 @@ function Subscriber() {
 			//   { method: "post" }
 			// );
 
-			console.log('email3:', email)
-
-			console.log('API response:', response)
-
-			const { message: responseMessage } = await response.json()
-
-			if (response.ok) {
-				console.log('Subscription successful')
-				setMessage(responseMessage)
-				setEmail('')
-			} else {
-				console.log('Subscription failed:', responseMessage)
-				setMessage(responseMessage)
-			}
+			// console.log('email3:', email)
+			//
+			// console.log('API response:', response)
+			//
+			// const { message: responseMessage } = await response.json()
+			//
+			// if (response.ok) {
+			// 	console.log('Subscription successful')
+			// 	setMessage(responseMessage)
+			// 	setEmail('')
+			// } else {
+			// 	console.log('Subscription failed:', responseMessage)
+			// 	setMessage(responseMessage)
+			// }
 		} catch (error) {
 			console.log('Subscription error:', error)
 			setMessage('An error occurred while subscribing.')
-		} finally {
-			setLoading(false)
 		}
+		//   finally {
+		// 	setLoading(false)
+		// }
 	}
 	return (
 		<section className='bg-gray-100 p-4 rounded-lg shadow-md max-w-sm mx-auto'>
