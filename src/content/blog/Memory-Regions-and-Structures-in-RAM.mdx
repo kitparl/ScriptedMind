@@ -156,32 +156,32 @@ below visual breakdown
 ```markdown
 1. Initial State
 
-   Stack:
-   +-----------------+
-   | Empty |
-   +-----------------+
+Stack
++-----------------+
+| Empty |
++-----------------+
 
-   Heap:
-   +-----------------+
-   | Empty |
-   +-----------------+
+Heap:
++-----------------+
+| Empty |
++-----------------+
 
 2. After Creating Person Object
 
-   Stack
-   +-----------------+
-   | Variable 'person' | <- Points to the `Person` object on the heap
-   +-----------------+
-   | Return address | <- Points to the exit location
-   +-----------------+
+Stack
++-----------------+
+| Variable 'person' | <- Points to the `Person` object on the heap
++-----------------+
+| Return address | <- Points to the exit location
++-----------------+
 
-   Heap:
-   +-----------------------------+
-   | Person Object |
-   +-----------------------------+
-   | name: "Pranshu" |
-   | age: 80 |
-   +-----------------------------+
+Heap:
++-----------------------------+
+| Person Object |
++-----------------------------+
+| name: "Pranshu" |
+| age: 80 |
++-----------------------------+
 
 3. After the Person Object Fields are Initialized
 
@@ -280,23 +280,23 @@ Data Segment:
 
 2. After Class Loading:
 
-   Data Segment:
-   +-------------------------------+
-   | Static Variable: |
-   | initializedValue = 42 |
-   +-------------------------------+
+Data Segment:
++-------------------------------+
+| Static Variable: |
+| initializedValue = 42 |
++-------------------------------+
 
 3. During main Method Execution:
 
-   Data Segment:
-   +-------------------------------+
-   | Static Variable: |
-   | initializedValue = 42 |
-   +-------------------------------+
-   Stack (for main method):
-   +-----------------+
-   | Return address | <- Points to the exit location
-   +-----------------+
+Data Segment:
++-------------------------------+
+| Static Variable: |
+| initializedValue = 42 |
++-------------------------------+
+Stack (for main method):
++-----------------+
+| Return address | <- Points to the exit location
++-----------------+
 
 4. After main Method Completes:
 
