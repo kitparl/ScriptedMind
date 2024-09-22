@@ -1,0 +1,319 @@
+---
+heroImage: /src/assets/images/git.png
+category: Docs
+description: >-
+  This cheatsheet covers a wide range of Git operations that are important for
+  developers, from basic to advanced usage. It includes everything from initial
+  setup and basic commands to more complex operations like interactive rebasing
+  and archive creation.
+pubDate: 2024-01-11T18:30:00.000Z
+tags:
+  - Cheatsheet
+  - Git
+title: Git Cheatsheet
+---
+
+# Comprehensive Git Cheatsheet for Developers
+
+## Table of Contents
+
+1. [Git Configuration](#git-configuration)
+2. [Creating and Cloning Repositories](#creating-and-cloning-repositories)
+3. [Basic Snapshotting](#basic-snapshotting)
+4. [Branching and Merging](#branching-and-merging)
+5. [Remote Repositories](#remote-repositories)
+6. [Inspection and Comparison](#inspection-and-comparison)
+7. [Undoing Changes](#undoing-changes)
+8. [Stashing](#stashing)
+9. [Rebasing](#rebasing)
+10. [Advanced Operations](#advanced-operations)
+11. [Git Aliases](#git-aliases)
+12. [Useful Git Commands](#useful-git-commands)
+
+### Git Configuration
+
+```bash
+# Set user information
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Set default editor
+git config --global core.editor "vim"
+
+# Set default branch name
+git config --global init.defaultBranch main
+
+# List all configurations
+git config --list
+
+# Edit global config file
+git config --global --edit
+```
+
+### Creating and Cloning Repositories
+
+```bash
+# Initialize a new repository
+git init
+
+# Clone a repository
+git clone <repository-url>
+git clone <repository-url> <directory>
+git clone -b <branch-name> <repository-url>
+git clone --depth=1 <repository-url>
+git clone --mirror <repository-url>
+git clone --recursive <repository-url>
+
+# Clone without checking out
+git clone --no-checkout <repository-url>
+
+# Clone with specific SSH key
+GIT_SSH_COMMAND='ssh -i /path/to/private/key' git clone <repository-url>
+```
+
+### Basic Snapshotting
+
+```bash
+# Check status
+git status # IMPORTANT
+
+# Add files to staging area
+git add <file> # IMPORTANT
+git add . # IMPORTANT
+
+# Commit changes
+git commit -m "Commit message" # IMPORTANT
+git commit -am "Add and commit message"
+
+# Amend the last commit
+git commit --amend
+```
+
+### Branching and Merging
+
+```bash
+# List branches
+git branch # IMPORTANT
+git branch -v
+
+# Create a new branch
+git branch <branch-name> # IMPORTANT
+
+# Switch to a branch
+git checkout <branch-name> # IMPORTANT
+git switch <branch-name>
+
+# Create and switch to a new branch
+git checkout -b <new-branch-name>
+git switch -c <new-branch-name>
+
+# Merge a branch into the current branch
+git merge <branch-name> # IMPORTANT
+
+# Delete a branch
+git branch -d <branch-name>
+git branch -D <branch-name>  # Force delete
+```
+
+### Remote Repositories
+
+```bash
+# List remote repositories
+git remote -v
+
+# Add a remote repository
+git remote add <name> <url>
+
+# Remove a remote repository
+git remote remove <name>
+
+# Rename a remote repository
+git remote rename <old-name> <new-name>
+
+# Change remote URL
+git remote set-url <name> <new-url>
+
+# Fetch from remote
+git fetch <remote>
+git fetch --all
+git fetch --prune
+
+# Pull from remote
+git pull <remote> <branch> # IMPORTANT
+git pull --rebase <remote> <branch>
+git pull --no-rebase <remote> <branch>
+
+# Push to remote
+git push <remote> <branch> # IMPORTANT
+git push --all <remote>
+git push --tags
+git push --force  # Use with caution
+git push --force-with-lease
+
+# Set up branch tracking
+git branch --set-upstream-to=<remote>/<branch>
+```
+
+### Inspection and Comparison
+
+```bash
+# View commit history
+git log
+git log --oneline
+git log --graph --decorate --all
+
+# Show changes
+git diff
+git diff <file>
+git diff <commit1> <commit2>
+
+# Show commit details
+git show <commit>
+```
+
+### Undoing Changes
+
+```bash
+# Discard changes in working directory
+git restore <file>
+
+# Unstage a file
+git restore --staged <file>
+
+# Reset HEAD to a specific commit
+git reset <commit>
+git reset --soft <commit>
+git reset --hard <commit>
+
+# Revert a commit
+git revert <commit>
+```
+
+### Stashing
+
+```bash
+# Stash changes
+git stashstatu
+git stash save "message"
+
+# List stashes
+git stash list
+
+# Apply a stash
+git stash apply
+git stash apply stash@{n}
+
+# Pop a stash
+git stash pop
+git stash pop stash@{n}
+
+# Drop a stash
+git stash drop stash@{n}
+
+# Clear all stashes
+git stash clear
+```
+
+### Rebasing
+
+```bash
+# Rebase current branch
+git rebase <branch>
+
+# Interactive rebase
+git rebase -i <commit>
+
+# Continue, abort, or skip rebase
+git rebase --continue
+git rebase --abort
+git rebase --skip
+
+# Rebase with autostash
+git rebase --autostash <branch>
+
+# Rebase with autosquash
+git rebase -i --autosquash <branch>
+
+# Rebase onto a specific commit
+git rebase --onto <newbase> <oldbase> <branch>
+```
+
+### Advanced Operations
+
+```bash
+# Cherry-pick a commit
+git cherry-pick <commit>
+
+# Create a lightweight tag
+git tag <tag-name>
+
+# Create an annotated tag
+git tag -a <tag-name> -m "Tag message"
+
+# Create a signed tag
+git tag -s <tag-name> -m "Tag message"
+
+# Archive a Git repository
+git archive --format=zip HEAD > archive.zip
+
+# Find common ancestor of two branches
+git merge-base <branch1> <branch2>
+
+# Bisect to find a bug
+git bisect start
+git bisect bad
+git bisect good <commit>
+```
+
+### Git Aliases
+
+I am using all custom-alias at one place: **[click](https://github.com/kitparl/dotfiles/blob/master/.config/custom-alias/.my_aliases)**
+
+or
+
+Add your custom alias to your `.gitconfig` file:
+
+```ini
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  # etc
+```
+
+### Useful Git Commands
+
+```bash
+# Show file content at a specific commit
+git show <commit>:<file>
+
+# Search for a string in all commits
+git log -S "<string>"
+
+# Show commits by author
+git log --author="<name>"
+
+# Show a visual branch history
+git log --graph --oneline --all
+
+# Clean untracked files
+git clean -n  # Dry run
+git clean -f  # Force clean
+
+# Prune remote-tracking branches
+git fetch --prune
+
+# Show who modified each line of a file
+git blame <file>
+
+# Count commits by author
+git shortlog -s -n
+
+# Find lost commits (after reset --hard)
+git reflog
+```
+
+### Git help
+
+`git help <command>` or `man git-<command>` for more detailed information on specific commands.

@@ -3,7 +3,7 @@ export const CATEGORIES = [
 	'Experiences',
 	'Tech',
 	'Docs',
-	'Blogs',
+	// 'Blogs',
 	'Resources',
 	'Programming'
 ] as const
