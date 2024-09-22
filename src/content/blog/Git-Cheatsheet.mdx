@@ -34,8 +34,8 @@ title: Git Cheatsheet
 
 ```bash
 # Set user information
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
+git config --global user.name "Pranshu"
+git config --global user.email "pranshu.bisht@gmail.com"
 
 # Set default editor
 git config --global core.editor "vim"
@@ -48,6 +48,9 @@ git config --list
 
 # Edit global config file
 git config --global --edit
+
+# Disable git pull rebase
+git config --global pull.rebase false
 ```
 
 ### Creating and Cloning Repositories
@@ -236,6 +239,9 @@ git rebase -i --autosquash <branch>
 
 # Rebase onto a specific commit
 git rebase --onto <newbase> <oldbase> <branch>
+
+# Rebase git pul rebase
+git pull --rebase=false
 ```
 
 ### Advanced Operations
