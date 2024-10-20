@@ -22,7 +22,7 @@ In an EDA, events are used to trigger actions, such as sending a message to othe
 
 ## Core Concepts
 
-1. **Events:** Things that happen in the system, like "order placed" or "payment received."
+1. **Events:** Things that happen in the system, like _"order placed"_ or _"payment received"_.
 2. **Publishers:** Components that create and send out events.
 3. **Subscribers:** Components that listen for and react to events
 4. **Event Bus/Broker:** The messenger that delivers events from publishers to subscribers.
@@ -31,7 +31,7 @@ In an EDA, events are used to trigger actions, such as sending a message to othe
 
 ## How It Works
 
-1. The **Publisher** creates an event (e.g., "Order Placed").
+1. The **Publisher** creates an event (e.g., _"Order Placed"_).
 2. The event goes to the **Event Bus**.
 3. The **Event Bus** notifies all interested **Subscribers**.
 4. The **Subscribers** then react to the event (e.g., update inventory, send notifications).
@@ -48,7 +48,7 @@ Think of it like a news service:
 
 Imagine an **e-commerce system**:
 
-- A customer places an order (Event: "OrderPlaced").
+- A customer places an order (Event: _"OrderPlaced"_).
 - Multiple systems react to this single event:
   - The **_Inventory System_** reduces stock.
   - The **_Notification System_** sends a confirmation email.
@@ -136,7 +136,7 @@ public class Main {
 
 ## Best Practices for Event-Driven Architecture
 
-- **Keep Events Simple:** Focus events on specific actions (e.g., "OrderPlaced").
+- **Keep Events Simple:** Focus events on specific actions (e.g., _"OrderPlaced"_).
 - **Graceful Failure Handling:** Ensure systems can handle errors smoothly.
 - **Event Ordering:** If needed, ensure events are processed in the right order.
 - **Error Handling and Retries:** Implement logic to retry failed operations.
