@@ -13,8 +13,87 @@ title: Go Battle concepts
 
 # Content
 
-1. [Length vs Capacity](#git-configuration)
-2. [Creating and Cloning Repositories](#creating-and-cloning-repositories)
+1. [Arrays and Slices](#Arrays-and-Slices)
+2. [Length vs Capacity](#Length-vs-Capacity)
+
+## Arrays and Slices
+
+| Arrays                                                                           | Slices                                                                           |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Fixed at compile-time                                                            | Dynamic, can grow and shrink                                                     |
+| Includes size in type                                                            | Does not include size in type                                                    |
+| Rarely used in Go                                                                | Commonly used in Go                                                              |
+| Can waste memory if unused size                                                  | More efficient for variable data                                                 |
+| Arrays - `[...]int{}` or `[n]int{}`                                              | `[]int{}`                                                                        |
+| [Go Array example](https://github.com/kitparl/dust-repo/tree/main/go/06_Arrays/) | [Go slice example](https://github.com/kitparl/dust-repo/tree/main/go/07_Slices/) |
+
+```go
+// Array declaration
+var numbers [5]int // Fixed size of 5 integers
+grades := [3]int{98, 93, 87} // Initialize with values
+matrix := [2][3]int{{1, 2, 3}, {4, 5, 6}} // Multi-dimensional array
+
+// Slice declaration
+var scores []int // Zero-value slice (nil)
+names := []string{"Alice", "Bob", "Charlie"} // Create slice with values
+numbers := make([]int, 5) // Create slice with length 5
+numbers := make([]int, 5, 10) // Create slice with length 5, capacity 10
+```
+
+### Slice declaration
+
+**1. From an Arrays**
+
+```go
+var arr = [5]int{1, 2, 3, 4, 5}
+var slice = arr[1:4] // Create a slice of arr from index 1 to 3.
+fmt.Println(slice)   // Output: [2 3 4]
+```
+
+**2. From `make`**
+
+```go
+slice := make([]int, 3, 5) // Length 3, capacity 5.
+fmt.Println(slice)        // Output: [0 0 0]
+```
+
+**3. using slice literals**
+
+```go
+slice := []int{10, 20, 30}
+fmt.Println(slice) // Output: [10 20 30]
+```
+
+### operations on Slices
+
+1. appending to a slice
+
+```go
+slice := []int{1, 2, 3}
+slice = append(slice, 4, 5)
+fmt.Println(slice) // Output: [1 2 3 4 5]
+```
+
+1. Copying Slices
+
+```go
+source := []int{1, 2, 3}
+dest := make([]int, len(source))
+copy(dest, source)
+fmt.Println(dest) // Output: [1 2 3]
+```
+
+### more detail on arrays and slice
+
+**1. Arrays `([...]int{} or [n]int{})` have a fixed size.**
+
+- You cannot add or remove elements after declaration.
+- You can only modify existing elements.
+
+**2. Slices `([]int{})` are dynamic.**
+
+- You can append or modify elements.
+- Slices are more commonly used in Go for their flexibility.
 
 ## Length vs Capacity
 
@@ -43,3 +122,8 @@ numbers = append(numbers, 5, 6)
 fmt.Printf("After exceeding capacity - Length: %d, Capacity: %d\n", len(numbers), cap(numbers))
 // Output: Length: 6, Capacity: 10 (Go typically doubles the capacity)
 ```
+
+### Behavior When Appending
+
+- When appending in slice and when exceed capacity, Go automatically allocate a new array with larger capacity.
+- The new capacity is typically doubled, but this depends on the implementation.
