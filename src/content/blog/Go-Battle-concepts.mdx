@@ -1,0 +1,45 @@
+---
+heroImage: /src/assets/images/battle.jpg
+category: Golang
+description: Golang concepts battle
+pubDate: 2024-11-25T18:30:00.000Z
+tags:
+  - go
+  - concepts
+  - programming
+  - golang
+title: Go Battle concepts
+---
+
+# Content
+
+1. [Length vs Capacity](#git-configuration)
+2. [Creating and Cloning Repositories](#creating-and-cloning-repositories)
+
+## Length vs Capacity
+
+| Length(len)                     | Slice(cap)                                                                   |
+| ------------------------------- | ---------------------------------------------------------------------------- |
+| Number of elements in the slice | Maximum number of elements the slice can grow to without reallocating memory |
+| function - len()                | function - cap()                                                             |
+
+```go
+// Create a slice with length 3 and capacity 5
+numbers := make([]int, 3, 5)
+fmt.Printf("Length: %d, Capacity: %d\n", len(numbers), cap(numbers))
+// Output: Length: 3, Capacity: 5
+
+// The slice has 3 zero-value elements
+fmt.Println(numbers)
+// Output: [0 0 0]
+
+// Append will add elements without reallocation until capacity is reached
+numbers = append(numbers, 4)
+fmt.Printf("After append - Length: %d, Capacity: %d\n", len(numbers), cap(numbers))
+// Output: Length: 4, Capacity: 5
+
+// When we exceed capacity, Go will allocate a new array with larger capacity
+numbers = append(numbers, 5, 6)
+fmt.Printf("After exceeding capacity - Length: %d, Capacity: %d\n", len(numbers), cap(numbers))
+// Output: Length: 6, Capacity: 10 (Go typically doubles the capacity)
+```
