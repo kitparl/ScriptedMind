@@ -7,6 +7,7 @@ description: >-
   (the underlying data).
 pubDate: 2024-11-26T18:30:00.000Z
 tags:
+  - golang
   - concepts
   - programming
   - fundamental
@@ -20,7 +21,7 @@ In Go, everything is passed by value, but it might not always feel that way. Her
 - For simple types like `int`, `float`, and `string`, passing by value means a **copy** of the variable's value is passed to the function.
 - Any changes made to the variable inside the function do not affect the original variable in the caller.
 
-### Code example
+### Code Go example
 
 ```go
 package main
@@ -69,7 +70,7 @@ When you pass these types, Go makes a copy of the value. Changes inside the func
 
 ## Pass by reference
 
-### Code example
+### Code Go example
 
 ```go
 package main
