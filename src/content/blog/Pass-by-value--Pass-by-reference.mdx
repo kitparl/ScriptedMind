@@ -1,0 +1,134 @@
+---
+heroImage: /src/assets/images/passbyvalandref.png
+category: Golang
+description: >-
+  Think of it like giving someone a copy of your house key - they get a copy
+  (pass by value), but they can still use it to change what's inside the house
+  (the underlying data).
+pubDate: 2024-11-26T18:30:00.000Z
+tags:
+  - concepts
+  - programming
+  - fundamental
+title: Pass by value & Pass by reference
+---
+
+In Go, everything is passed by value, but it might not always feel that way. Here's what that means:
+
+## Pass by value (simple types):
+
+- For simple types like `int`, `float`, and `string`, passing by value means a **copy** of the variable's value is passed to the function.
+- Any changes made to the variable inside the function do not affect the original variable in the caller.
+
+### Code example
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+	number := 5
+	fmt.Println("Value of number in main is", number)
+	fmt.Println()
+	fmt.Println("Address of number in main is", &number)
+	fmt.Println()
+	case1(&number)
+	fmt.Println("After case1, the value of number is", number)
+}
+
+
+func case1(number *int){ // here copy of the variable that is 5 is passed /// that is why this number holds a different address /// number variable is same but still different because of pointer (different address)
+	// number = number + 10  ---> i cannot pointer + 10 ---> dereference it
+
+	fmt.Println("In case 1, value of number is", &number)
+	*number = *number + 10
+
+		fmt.Println("In case 1, address of number is", number)
+	fmt.Println("In case 1, address of number is", *number)
+	fmt.Println("In case 1, value of number is", &number)
+}
+
+
+// passing the value in arguments always a create a copy of the value of the vairable that is passed
+// we can see the two differnt address. simply tells not the same
+```
+
+### Example output
+
+```md
+Value of number in main is 5
+In case 1, address of number is 15
+In case 1, value of number is 0xc000012118
+Address of number in main is 0xc000012110
+After case1, the value of number is 5
+```
+
+When you pass these types, Go makes a copy of the value. Changes inside the function don't affect the original variable.
+
+## Pass by reference
+
+### Code example
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+	number := 5
+	fmt.Println("Value of number in main is", number)
+	fmt.Println()
+	fmt.Println("Address of number in main is", &number)
+	fmt.Println()
+	case1(&number)
+	fmt.Println("After case1, the value of number is", number)
+}
+
+
+func case1(number *int){ // here copy of the variable that is 5 is passed /// that is why this number holds a different address /// number variable is same but still different because of pointer (different address)
+	// number = number + 10  ---> i cannot pointer + 10 ---> dereference it
+
+	fmt.Println("In case 1, value of number is", &number)
+	*number = *number + 10
+
+		fmt.Println("In case 1, address of number is", number)
+	fmt.Println("In case 1, address of number is", *number)
+	fmt.Println("In case 1, value of number is", &number)
+}
+
+
+// passing the value in arguments always a create a copy of the value of the vairable that is passed
+// we can see the two differnt address. simply tells not the same
+```
+
+### Code output
+
+```md
+Value of number in main is 5
+
+Address of number in main is 0xc000012110
+
+In case 1, value of number is 0xc000052028
+In case 1, address of number is 0xc000012110
+In case 1, address of number is 15
+In case 1, value of number is 0xc000052028
+After case1, the value of number is 15
+```
+
+- Even though everything is technically passed by value.
+- But certain data types like slices, maps, and channels behave as though they are passed by reference
+- Because these types contain internal pointers to underlying data structures.
+- Slices pass a copy of the slice header, but it points to the same underlying array
+- Maps and channels pass a copy of a pointer to the same underlying data
+- Pointers pass a copy of the memory address
+
+This is why changes to slices, maps, and pointers inside functions can affect the original data - you're working with copies of references that point to the same memory location.
+
+## Key points
+
+- Everything in Go is passed by value. However, the value can itself be a pointer or a reference to data.
+- For simple types (int, float, string), the value is copied, and changes inside functions do not affect the original variable.
+- For slices, maps, channels, and pointers, a copy of the reference is passed, allowing the function to modify the underlying data.
