@@ -1,0 +1,109 @@
+---
+heroImage: /src/assets/images/garbage-collection.jpg
+category: Programming
+description: Understanding Memory Management and Memory Leaks in Programming
+pubDate: 2024-12-02T18:30:00.000Z
+tags:
+  - memory
+  - Fundamentals
+  - Programming
+title: Understanding Memory Management and Memory Leaks in Programming
+---
+
+Nowadays, when we start learning programming languages, we often begin with higher-level languages like Python, Golang and JavaScript. These languages make it easier to write code and manage tasks, but they also hide some important programming concepts.
+
+For example, JavaScript doesn't expose memory addresses because of its higher-level abstraction and it can't print addresses. This is why many new devs have no idea about this, which I believe is not good.
+
+because the **_deeper the knowledge, the stronger the grip_**, in my opinion.
+
+Modern programming languages handle memory management differently, ranging from manual control to automated systems. Let's explore these concepts through simple examples.
+
+## Memory Management Evolution
+
+In the early days of programming, languages like C and C++ required programmers to manage memory manually. Today's high-level languages like Python and JavaScript handle this automatically, making programming easier but potentially hiding important concepts from developers.
+
+## What is a Memory Leak?
+
+A common misconception is that memory leaks occur when data structures overflow. Actually, **a memory leak happens when a program allocates memory but fails to release** it when it's no longer needed. This unused memory remains unavailable to other programs.
+
+## Manual Memory Management
+
+In C, programmers must explicitly allocate and free memory:
+
+```c
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int* ptr = (int*)malloc(sizeof(int));
+    if (ptr == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    *ptr = 100;
+    printf("Value: %d\n", *ptr);
+
+    free(ptr);  // Manually freeing memory
+
+    return 0;
+}
+
+```
+
+## Memory References and Pointers
+
+Consider this Go example showing how multiple references point to the same memory location:
+
+```go
+
+package main
+
+import "fmt"
+
+func main() {
+
+    arr := []int{10, 20, 30, 40, 50}
+
+    pointer1 := &arr
+
+    fmt.Printf("%p", pointer1) // OUTPUT: 0xc0000aa018
+
+    pointer2 := pointer1
+
+    fmt.Printf("%p", pointer2) // OUTPUT: 0xc0000aa018
+
+}
+
+```
+
+In languages without manual memory management, you can't directly free memory. If you could delete `pointer1`, but `pointer2` still referenced that memory, you'd create a dangerous **dangling pointer** situation.
+
+## Garbage Collection: The Modern Solution
+
+**To prevent these issues, modern languages use garbage collectors.** These automatically identify and free unused memory. Here's a Go example showing automated memory management:
+
+```go
+
+func main() {
+
+    ptr := new(int)
+
+    *ptr = 100
+
+    fmt.Println(\*ptr)
+
+    // Memory automatically managed by garbage collector
+}
+
+```
+
+The garbage collector:
+
+- **_Tracks memory usage_**
+- **_Identifies unused objects_**
+- **_Frees memory automatically_**
+- **_Prevents most memory leaks_**
+
+This automation makes development safer and more efficient, though it's still valuable to understand the underlying concepts.
