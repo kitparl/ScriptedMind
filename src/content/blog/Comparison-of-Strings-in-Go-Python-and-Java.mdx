@@ -2,8 +2,10 @@
 heroImage: /src/assets/images/Strings_in_Go_hbekti.png
 category: Golang
 description: >-
-  This is actually a misconception - strings are not immutable in every
-  programming language.
+  I frequently encountered the notion that strings are immutable in languages
+  like Java, Python, and JavaScript. I always thought the concept was clear
+  until I compared it with Go's string handling. Here, I’ll share the
+  differences I discovered.
 pubDate: 2024-12-15T18:30:00.000Z
 tags:
   - Fundamentals
@@ -159,7 +161,7 @@ fmt.Printf("%p\n", &str2)  // Different address
 
 1. You cannot modify individual characters in a string
 2. The string's content cannot be changed after creation
-3. To "modify" a string, you actually create a new string
+3. To modify a string, you actually create a new string
 
 ### Go Immutability
 
@@ -198,7 +200,6 @@ String newStr = "H" + str1.substring(1);
 Go's design prevents accidental sharing of string memory
 
 ```go
-// Go's design prevents accidental sharing of string memory
 str1 := "hello"
 str2 := str1       // Creates a lightweight copy (just the header(pointer, length))
 // Modifications to str2 can't affect str1's data
