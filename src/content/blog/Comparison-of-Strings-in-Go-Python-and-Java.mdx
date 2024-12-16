@@ -1,0 +1,258 @@
+---
+heroImage: /src/assets/images/Strings_in_Go_hbekti.png
+category: Golang
+description: >-
+  This is actually a misconception - strings are not immutable in every
+  programming language.
+pubDate: 2024-12-15T18:30:00.000Z
+tags:
+  - Fundamentals
+  - Golang
+  - Strings
+title: 'Strings immutabality in Go, Python, and Java'
+---
+
+In Go, strings are indeed immutable - **once created, you cannot modify their contents**.
+
+## String Immutability Across Programming Languages
+
+This is actually a misconception - strings are not immutable in every programming language.
+
+### Languages with immutable strings
+
+- Golang
+- Java
+- Python
+- Javascript
+- C#
+- Ruby
+
+### Languages with mutable strings:
+
+- C
+- C++
+- Perl
+- PHP before version 7
+
+I am writing this article because I have read many times that strings are immutable in **_Java, Python, and JavaScript,_** and I thought the concept was crystal clear until I compared it with Go's string handling. Here, I’ll share the differences I discovered.
+
+## Understanding String Behavior in Languages
+
+**I tested the behavior of strings in Java using the following code**
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        String name = "pranshu"; // First assignment
+        System.out.println("Address (hashCode) after first assignment: " + System.identityHashCode(name));
+
+        name = "hritik"; // Second assignment
+        System.out.println("Address (hashCode) after second assignment: " + System.identityHashCode(name));
+    }
+}
+
+// Note: System.identityHashCode() is a method in the System class that returns the hash code of an object as determined by the JVM.
+```
+
+**Output:**
+
+```md
+Address (hashCode) after first assignment: 123456789
+Address (hashCode) after second assignment: 987654321
+```
+
+**Same i tested with Python using below code.**
+
+```python
+# Helper function to print the address of a variable
+def address_of(variable):
+    return hex(id(variable))
+
+
+str = "pranshu"
+print("Address of variable str:", address_of(str))
+
+str = "hritik"
+print("Address of variable str after reassignment:", address_of(str))
+
+```
+
+**Output:**
+
+```md
+Address of variable str: 0x7fd5448369a0
+Address of variable str after reassignment: 0x7fd544836ac0
+```
+
+**Whereas I tested behavior with golang**
+
+```go
+func main() {
+	str := "pranshu"
+	fmt.Println("Address of variable str:", &str)
+
+	str = "hritik"
+	fmt.Println("Address of variable str after reassignment:", &str)
+}
+```
+
+**Output:**
+
+```md
+Address of variable str: 0xc000014070
+Address of variable str after reassignment: 0xc000014070
+```
+
+I was confused when **Go returned the same address** even after reassignment.
+
+In many interviews, I had said that reassigning or modifying a string would change its reference or address. However, this is not entirely correct for Go strings.
+
+## Go's String Handling
+
+In Go, strings are immutable, but the way they are managed is different from languages like Python and Java:
+
+- When you create a string variable, you're creating a string header that contains:
+  - A **pointer** to the actual string data
+  - The **length** of the string
+- Each variable has its own unique memory address (what you see when printing \&str - **0xc000014070**)
+- However, the actual string data they point to might be shared due to Go's string interning optimization, especially for string literals
+- When you modify a string: The variable's memory address (\&str) remains constant, but it points to new string data because strings are immutable. (see the above given example)
+
+## String Interning
+
+- In Python and Java, string literals may share the same memory address due to **string interning**.
+
+### In Python:
+
+```python
+str1 = "hello"
+str2 = "hello"
+# In Python, id() shows the memory address
+print(id(str1))  # Both will have same address due to string interning
+print(id(str2))  # Same address as str1
+```
+
+### In Java:
+
+```java
+String str1 = "hello";
+String str2 = "hello";
+// Both reference same string pool object
+System.out.println(str1 == str2);  // true for literals due to string pool
+```
+
+### In Go:
+
+```go
+str1 := "hello"
+str2 := "hello"
+// Different variables have different addresses
+fmt.Printf("%p\n", &str1)  // Different address
+fmt.Printf("%p\n", &str2)  // Different address
+```
+
+- **Go gives each string variable its own memory address, even though the underlying data might be shared**
+- **Go's approach aligns with its philosophy of being more explicit about memory locations**
+- Wheareas, in Python and Java use string interning/pooling where identical string literals share the same memory location. Java's string pool is part of its memory management strategy
+
+## Immutable Strings in Action
+
+1. You cannot modify individual characters in a string
+2. The string's content cannot be changed after creation
+3. To "modify" a string, you actually create a new string
+
+### Go Immutability
+
+```go
+str1 := "hello"
+// str1[0] = 'H'  // This will cause compilation error - can't modify string contents directly
+
+// To modify, you must create a new string
+newStr := "H" + str1[1:]
+```
+
+### Python Immutability:
+
+```python
+str1 = "hello"
+# str1[0] = 'H'  # This raises TypeError: 'str' object does not support item assignment
+
+# Need new string for changes
+new_str = 'H' + str1[1:]
+```
+
+### Java Immutability:
+
+```java
+String str1 = "hello";
+// str1.charAt(0) = 'H';  // Not possible - String is immutable
+
+// Need new String for changes
+String newStr = "H" + str1.substring(1);
+```
+
+## Go's String Handling Design Advantages
+
+**1. Memory Safety and Performance**
+
+Go's design prevents accidental sharing of string memory
+
+```go
+// Go's design prevents accidental sharing of string memory
+str1 := "hello"
+str2 := str1       // Creates a lightweight copy (just the header(pointer, length))
+// Modifications to str2 can't affect str1's data
+
+// Note:
+/*
+when you assign str1 to str2 in Go, the addresses of str1 and str2 may seem to "change," but the underlying behavior of the string remains the same.
+
+When you modify a string by reassigning it (str1 = "newValue"), Go creates a new string in memory.
+*/
+```
+
+**2. Efficiency in Multi-threaded Scenarios**
+
+```go
+func handleString(s string) {
+    // Since strings are immutable and Go copies the header
+    // This is completely safe across goroutines
+    go func() {
+        fmt.Println(s)
+    }()
+}
+```
+
+**3. Better Memory Control**
+
+```go
+str := "hello"
+bytes := []byte(str)  // Explicit conversion when mutability needed
+bytes[0] = 'H'        // Clear indication of memory allocation
+```
+
+## Key Advantages Go over Java and Python
+
+**1. More Predictable Performance:**
+
+- Java: String pool management can lead to unexpected memory behavior
+- Python: String interning rules can be complex
+- Go: Straightforward copying of string headers, clear memory ownership
+
+**2. Concurrency Safety:**
+
+- Go's string design works naturally with its concurrency model
+- No need for synchronization when sharing strings between goroutines
+- Clear separation between immutable strings and mutable byte slices
+
+**3. Memory Efficiency:**
+
+- String headers are small and cheap to copy
+- Explicit conversions to \[]byte when mutation is needed
+- No complex interning mechanism to manage
+
+**4. Clearer Mental Model:**
+
+- You always know exactly what happens with memory
+- No hidden string pooling or interning behavior
+- Explicit distinction between string views and mutations
