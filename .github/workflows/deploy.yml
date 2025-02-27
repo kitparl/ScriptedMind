@@ -15,20 +15,23 @@ jobs:
     steps:
       - name: Checkout your repository
         uses: actions/checkout@v4
-      - name: Install, build, and upload your site
-        uses: withastro/action@v3
+        
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20.9.0
+
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4  # Updated version
         with:
           version: 9.6.0
+
       - name: Install dependencies
         run: pnpm install
+
       - name: Build the site
         run: pnpm run build
+
       - name: Upload Pages artifact
         uses: actions/upload-artifact@v4
         with:
@@ -45,5 +48,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-
