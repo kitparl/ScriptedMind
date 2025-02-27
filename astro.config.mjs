@@ -3,11 +3,9 @@ import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
 import react from '@astrojs/react';
-// Remove the node import
 
 export default defineConfig({
   output: 'static', // Keep this for GitHub Pages
-  // Remove the adapter configuration
   site: 'https://kitparl.site',
   integrations: [
     react(),
