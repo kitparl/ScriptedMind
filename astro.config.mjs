@@ -3,24 +3,20 @@ import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
 import react from '@astrojs/react';
-import node from '@astrojs/node';
+// Remove the node import
 
-// https://astro.build/config
 export default defineConfig({
-  output: 'static',
-  adapter: node({
-    mode: 'standalone', // Set the mode to 'standalone'
-  }),
+  output: 'static', // Keep this for GitHub Pages
+  // Remove the adapter configuration
   site: 'https://kitparl.site',
   integrations: [
     react(),
     mdx({
       syntaxHighlight: 'shiki',
       shikiConfig: {
-        // defaultColor: false,
         themes: {
-          light: 'one-light', // Change this to test different themes
-          dark: 'andromeeda',   // Change this to test different themes
+          light: 'one-light',
+          dark: 'andromeeda',
         },
         wrap: true
       },
@@ -32,8 +28,8 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       themes: {
-        light: 'one-light', // Change this to test different themes
-        dark: 'andromeeda',   // Change this to test different themes
+        light: 'one-light',
+        dark: 'andromeeda',
       },
       wrap: true,
     },
