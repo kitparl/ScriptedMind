@@ -12,8 +12,8 @@ export async function POST({ request }: { request: Request }) {
 			title: string
 		} = await request.json()
 
-		const result = await sendEmail({ title, url })
-		return new Response(JSON.stringify(result), { status: 200 })
+		const res = await sendEmail({ title, url })
+		return new Response(JSON.stringify(res), { status: 200 })
 	} catch (err) {
 		return new Response(JSON.stringify({ error: (err as Error).message }), { status: 500 })
 	}
