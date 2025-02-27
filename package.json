@@ -33,7 +33,6 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
-		"@astrojs/node": "^8.3.3",
 		"@astrojs/react": "^3.6.2",
 		"@astrojs/rss": "4.0.1",
 		"astro": "^4.15.3",
