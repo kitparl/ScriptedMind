@@ -28,7 +28,7 @@ jobs:
       - name: Build the site
         run: pnpm run build
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           path: ./dist
 
