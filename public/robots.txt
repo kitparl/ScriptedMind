@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pranshu.tech
+Sitemap: https://kitparl.site
