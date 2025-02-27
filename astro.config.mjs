@@ -7,7 +7,6 @@ import react from '@astrojs/react';
 export default defineConfig({
   output: 'static', // Keep this for GitHub Pages
   site: 'https://kitparl.site',
-  base: 'ScriptedMind',
   integrations: [
     react(),
     mdx({
