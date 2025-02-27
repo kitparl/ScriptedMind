@@ -37,7 +37,7 @@
 		"@astrojs/rss": "4.0.1",
 		"astro": "^4.15.3",
 		"astro-font": "^0.0.72",
-		"better-sqlite3": "7",
+		"better-sqlite3": "^11.8.1",
 		"dotenv": "^16.4.5",
 		"mailgun-js": "^0.22.0",
 		"mailgun.js": "^10.2.3",
