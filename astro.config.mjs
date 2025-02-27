@@ -6,7 +6,7 @@ import react from '@astrojs/react';
 
 export default defineConfig({
   output: 'static', // Keep this for GitHub Pages
-  site: 'https://kitparl.site',
+  site: 'https://kitparl.github.io',
   integrations: [
     react(),
     mdx({
