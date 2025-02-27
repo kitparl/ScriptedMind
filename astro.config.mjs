@@ -11,7 +11,7 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone', // Set the mode to 'standalone'
   }),
-  site: 'https://pranshu.tech',
+  site: 'https://kitparl.site',
   integrations: [
     react(),
     mdx({
