@@ -19,6 +19,9 @@
 	"bugs": {
 		"url": "https://github.com/danielcgilibert/blog-template/issues"
 	},
+	"engines": {
+		"node": "20.9.0"
+	},
 	"scripts": {
 		"dev": "npx tinacms dev -c \"astro dev\"",
 		"start": "astro dev",
