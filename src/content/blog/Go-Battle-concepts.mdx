@@ -2,7 +2,7 @@
 heroImage: /src/assets/images/battle.jpg
 category: Golang
 description: Golang concepts battle
-pubDate: 2024-11-25T18:30:00.000Z
+pubDate: 2025-05-26T18:30:00.000Z
 tags:
   - go
   - concepts
@@ -15,6 +15,8 @@ title: Go Battle concepts
 
 1. [Arrays and Slices](#arrays-and-slices)
 2. [Length vs Capacity](#length-vs-capacity)
+3. [Struct vs Map](#struct-vs-map)
+4. [Overloading vs Overriding](#overloading-vs-overriding)
 
 ## Arrays and Slices
 
@@ -127,3 +129,78 @@ fmt.Printf("After exceeding capacity - Length: %d, Capacity: %d\n", len(numbers)
 
 - When appending in slice and when exceed capacity, Go automatically allocate a new array with larger capacity.
 - The new capacity is typically doubled, but this depends on the implementation.
+
+## Struct vs Map
+
+| Feature      | Struct                                            | Map (map\[string]any) or map\[string]Ty           |
+| ------------ | ------------------------------------------------- | ------------------------------------------------- |
+| Fixed schema | Feild Names and types are defined at compile time | Keys are dynamic, not type-safe                   |
+| Type Safety  | Strongly typed                                    | Weak typing (especially with **map\[string]any**) |
+| Performance  | Faster (Less overhead)                            | Slower (dynamic, uses hashing)                    |
+| Memory Usage | More efficient                                    | Higher due to map internals                       |
+| Readability  | More self-documenting                             | Less clear structure                              |
+| Use Case     | Known Structure (eg. Person)                      | Unknown/Dynamic structure (eg: JSON-like data)    |
+
+- Struct: Best for known data
+- Map: Best for dynamic data
+
+## Overloading vs Overriding
+
+### Overloading in Go
+
+- Overloading means defining multiple functions or methods with the same name but different paramenter types of counts.
+- Not supported in Go
+- Results in **Comipler Error**: _"Add redeclared in this block"_
+
+### Overriding in Go
+
+- Overriding is possible through interfaces and embedding.
+
+**1. Supported via Interface implementation**
+
+```go
+type Speaker interface {
+    Speak()
+}
+
+type Dog struct{}
+
+func (d Dog) Speak() {
+    fmt.Println("Woof")
+}
+
+type Cat struct{}
+
+func (c Cat) Speak() {
+    fmt.Println("Meow")
+}
+
+func MakeItSpeak(s Speaker) {
+    s.Speak()
+}
+```
+
+**2. Supported via embedding (similar to subclassing):**
+
+```go
+type Animal struct{}
+
+func (a Animal) Speak() {
+    fmt.Println("Some sound")
+}
+
+type Dog struct {
+    Animal
+}
+
+func (d Dog) Speak() {
+    fmt.Println("Woof")
+}
+
+func main() {
+    var d Dog
+    d.Speak()        // "Woof"
+    d.Animal.Speak() // "Some sound"
+}
+
+```
