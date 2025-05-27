@@ -1,0 +1,60 @@
+---
+heroImage: /src/assets/images/typeconversion.png
+category: Golang
+description: 'Type Conversion: Convert one data type to another'
+pubDate: 2025-05-27T18:30:00.000Z
+tags:
+  - Golang
+title: Type-Conversion
+---
+
+Type casting/ Type conversion is the process of converting the value of one data type (integer, float, string ) to another data type
+
+## Convert String to Number
+
+**1. String to int**
+
+`func Atoi(str string) (int, error)`
+
+```go
+import "strconv"
+
+s := "123"
+i, err := strconv.Atoi(s)
+if err != nil {
+    // handle error
+}
+fmt.Println(i) // Output: 123
+```
+
+**2. String to int64**
+
+```go
+s := "1234567890"
+i64, err := strconv.ParseInt(s, 10, 64)
+if err != nil {
+    // handle error
+}
+fmt.Println(i64)
+```
+
+**3. String to float64**
+
+```go
+s := "3.14"
+f, err := strconv.ParseFloat(s, 64)
+if err != nil {
+    // handle error
+}
+fmt.Println(f) // Output: 3.14
+```
+
+## Convert Number to String
+
+**1. int to String**
+
+```go
+i := 123
+s := strconv.Itoa(i)
+fmt.Println(s) // Output: "123"
+```
