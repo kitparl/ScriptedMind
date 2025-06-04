@@ -6,5 +6,5 @@ export const CATEGORIES = [
 	// 'Blogs',
 	'Resources',
 	'Programming',
-	'Golang'
+	'Go'
 ] as const
