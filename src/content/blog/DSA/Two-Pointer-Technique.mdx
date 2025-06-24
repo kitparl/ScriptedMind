@@ -1,0 +1,150 @@
+---
+heroImage: /src/assets/images/datastructure/two-pointer.png
+category: Programming
+description: >-
+  The two-pointer technique is frequently applied to effectively solve array
+  problems. It is a search method that compares elements referenced by two
+  pointers and updates them as necessary to solve problems involving collections
+  such as arrays and lists.
+pubDate: 2025-06-24T18:30:00.000Z
+tags:
+  - algo
+  - dsa
+title: Two Pointer Technique
+---
+
+# Two Pointer Technique
+
+It uses two pointers (or indices) that move through the data structure (string or array) from different directions or with different speeds.
+
+It is a smart way to solve problems on arrays or strings using two variables.
+
+Instead of using loops inside loops (which is slow), we move two pointers through the array to find answers faster.
+
+## Common Patterns
+
+**1.** Opposite Ends (start and end)
+
+- Used for sorted arrays.
+- Eg. Finding pairs with a given sum.
+
+```java
+`java
+public class TwoPointerSum {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 6};
+        int target = 7;
+
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left < right) {
+            int sum = arr[left] + arr[right];
+
+            if (sum == target) {
+                System.out.println("Found: " + arr[left] + " + " + arr[right]);
+                break;
+            } else if (sum < target) {
+                left++; // move right
+            } else {
+                right--; // move left
+            }
+        }
+    }
+}
+
+// Pehle dono end se start karte ho.
+// Check karte ho sum kya hai.
+// Agar sum chhota hai → left ko aage badhao.
+// gar sum zyada hai → right ko peeche lao.
+```
+
+**2.** Same Direction (sliding window)
+
+- Both pointers start at the beginning and move forward.
+- E.g. Finding the longest substtring with no repeating character.
+
+```java
+import java.util.HashSet;
+import java.util.Set;
+
+public class LongestUniqueSubstring {
+    public static int lengthOfLongestSubstring(String s) {
+        Set<Character> seen = new HashSet<>();
+        int left = 0, right = 0, max = 0;
+
+        while (right < s.length()) {
+            if (!seen.contains(s.charAt(right))) {
+                seen.add(s.charAt(right));
+                max = Math.max(max, right - left + 1);
+                right++;
+            } else {
+                seen.remove(s.charAt(left));
+                left++;
+            }
+        }
+
+        return max;
+    }
+
+    public static void main(String[] args) {
+        String input = "abcabcbb";
+        System.out.println("Longest unique substring length: " + lengthOfLongestSubstring(input));
+    }
+}
+
+```
+
+**3.** Fast and Slow pointers
+
+- One pointer moves faster than the other.
+- eg Detecting cycles in linked lists.
+
+```java
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int x) {
+        val = x;
+        next = null;
+    }
+}
+
+public class LinkedListCycle {
+    public static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        while (slow != fast) {
+            if (fast == null || fast.next == null) return false;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+        // Create a linked list with a cycle
+        ListNode node1 = new ListNode(3);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(0);
+        ListNode node4 = new ListNode(-4);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node2; // cycle here
+
+        System.out.println("Has cycle? " + hasCycle(node1));
+    }
+}
+```
+
+## 🎯 Tips
+
+- Works best with sorted data or when a problem involves subarrays, substrings, or pairs.
+- Can reduce time from O(n sqr) to O(n).
+- Often combined with sliding window or prefix sums.
