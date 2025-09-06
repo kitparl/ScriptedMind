@@ -1,0 +1,183 @@
+/* Enhanced Code Block Styling for Better Light Mode Visibility */
+pre {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin: 16px 0;
+  font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Consolas', monospace;
+}
+
+code {
+  background-color: #f1f3f4;
+  color: #1a1a1a;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  border: 1px solid #e1e5e9;
+  font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 13px;
+}
+
+pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: #2d3748 !important;
+  font-weight: 400;
+}
+
+/* ASCII Art & Diagrams Enhancement */
+pre:has(code:not([class])) {
+  background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%) !important;
+  border: 2px solid #e2e8f0;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #2d3748;
+}
+
+/* Inline code in paragraphs */
+p code, 
+li code, 
+td code {
+  background-color: #edf2f7;
+  color: #2b6cb0;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #cbd5e0;
+}
+
+/* Language-specific styling */
+pre[class*="language-"] {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%) !important;
+  border: 2px solid #4a5568;
+  color: #e2e8f0;
+}
+
+pre[class*="language-"] code {
+  color: #e2e8f0 !important;
+}
+
+/* Bash/Terminal styling */
+pre code:contains("npm"), 
+pre code:contains("docker"), 
+pre code:contains("node") {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+  color: #00ff00 !important;
+  border: 2px solid #444;
+}
+
+/* YAML styling */
+pre:has(code:contains("version:")) {
+  background: linear-gradient(135deg, #fef5e7 0%, #fed7aa 100%) !important;
+  border: 2px solid #f59e0b;
+}
+
+pre:has(code:contains("version:")) code {
+  color: #92400e !important;
+}
+
+/* JavaScript styling */
+pre:has(code:contains("const "), code:contains("async ")) {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+  border: 2px solid #3b82f6;
+}
+
+pre:has(code:contains("const "), code:contains("async ")) code {
+  color: #1e40af !important;
+}
+
+/* Output/Result styling */
+pre:has(code:contains("✅"), code:contains("📩")) {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
+  border: 2px solid #22c55e;
+}
+
+pre:has(code:contains("✅"), code:contains("📩")) code {
+  color: #166534 !important;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  pre {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%) !important;
+    border-color: #4a5568;
+    color: #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  
+  code {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    border-color: #4a5568;
+  }
+  
+  pre code {
+    color: #e2e8f0 !important;
+  }
+  
+  p code, 
+  li code, 
+  td code {
+    background-color: #2d3748;
+    color: #63b3ed;
+    border-color: #4a5568;
+  }
+  
+  pre:has(code:not([class])) {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%) !important;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+}
+
+/* Hover effects for interactivity */
+pre:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+/* Copy button space (if you add one later) */
+pre {
+  position: relative;
+}
+
+/* Scrollbar styling for code blocks */
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+@media (prefers-color-scheme: dark) {
+  pre::-webkit-scrollbar-track {
+    background: #2d3748;
+  }
+  
+  pre::-webkit-scrollbar-thumb {
+    background: #4a5568;
+  }
+  
+  pre::-webkit-scrollbar-thumb:hover {
+    background: #718096;
+  }
+}
