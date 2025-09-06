@@ -116,20 +116,39 @@
 	}
 }
 
-/* Mobile Responsive Fixes - Pure CSS without @apply inside @media */
-@media (max-width: 640px) {
+/* THE REAL FIX: Break code blocks free from prose container width constraints */
+@media (max-width: 768px) {
 	.prose pre {
-		padding: 12px;
-		border-radius: 6px;
-		margin-left: 0;
-		margin-right: 0;
+		/* Break out of prose container */
+		width: 100vw;
 		max-width: 100vw;
-		width: calc(100vw - 2rem);
+		margin-left: calc(-50vw + 50%);
+		margin-right: calc(-50vw + 50%);
+		padding-left: 1rem;
+		padding-right: 1rem;
+		border-radius: 0;
+		
+		/* Keep font size readable */
+		font-size: 14px;
+		
+		/* Ensure horizontal scrolling works */
+		overflow-x: auto;
+		box-sizing: border-box;
 	}
 	
+	/* ASCII diagrams - full viewport width */
 	.prose pre:has(code:not([class*="language-"])) {
+		width: 100vw;
+		max-width: 100vw;
+		margin-left: calc(-50vw + 50%);
+		margin-right: calc(-50vw + 50%);
+		padding-left: 1rem;
+		padding-right: 1rem;
+		
+		/* Keep readable font */
+		font-size: 12px;
 		white-space: pre;
-		overflow-x: scroll;
+		overflow-x: auto;
 	}
 	
 	/* Disable hover effects on mobile */
@@ -139,19 +158,27 @@
 	}
 }
 
+/* Extra small screens */
 @media (max-width: 480px) {
-	.prose {
-		max-width: 100%;
-		overflow-x: hidden;
-	}
-	
 	.prose pre {
-		padding: 10px;
-		border-radius: 4px;
+		padding-left: 0.75rem;
+		padding-right: 0.75rem;
+		padding-top: 0.75rem;
+		padding-bottom: 0.75rem;
 	}
 	
 	.prose pre:has(code:not([class*="language-"])) {
-		overflow-x: auto;
+		padding-left: 0.75rem;
+		padding-right: 0.75rem;
+	}
+}
+
+/* For devices with very narrow prose containers */
+@media (max-width: 640px) {
+	.prose {
+		/* Ensure prose itself doesn't cause overflow */
+		max-width: 100%;
+		overflow-x: hidden;
 	}
 }
 
