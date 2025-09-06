@@ -94,6 +94,8 @@ Let's understand with a simple example. Suppose there is a company called **Uber
 ### Basic Components
 
 ```
+
+
 [Producer] -----> [Kafka Server] -----> [Consumer]
 (Driver App)    (Message Broker)    (Location Service)
                         |
@@ -103,6 +105,8 @@ Let's understand with a simple example. Suppose there is a company called **Uber
                 │ Topic 2 │ (ride-requests)
                 │ Topic 3 │ (payments)
                 └─────────┘
+
+
 ```
 
 **Components:**
@@ -127,6 +131,8 @@ Let's understand with a simple example. Suppose there is a company called **Uber
 - More partitions = faster processing
 
 ```
+
+
 Topic: driver-locations
 ┌─────────────────────────────────────────────────────────────┐
 │                                                             │
@@ -150,6 +156,8 @@ Topic: driver-locations
 **🤔 Problem Without Consumer Groups:**
 
 ```
+
+
 Topic with 1 Million Messages
 ┌─────────────────────────────┐
 │ Message 1, Message 2, ...   │
@@ -162,11 +170,15 @@ Topic with 1 Million Messages
      │   Single    │ ← Takes 10 hours to process all messages!
      │  Consumer   │
      └─────────────┘
+
+
 ```
 
 **✅ Solution With Consumer Groups:**
 
 ```
+
+
 Topic with 1 Million Messages (4 Partitions)
 ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐
 │250K msgs│ │250K msgs│ │250K msgs│ │250K msgs│
@@ -180,6 +192,8 @@ Topic with 1 Million Messages (4 Partitions)
 └─────────┘ └─────────┘ └─────────┘ └─────────┘
                          ↓
               Takes only 2.5 hours! (4x faster)
+
+
 ```
 
 **🎯 Benefits of Consumer Groups:**
@@ -193,10 +207,14 @@ Topic with 1 Million Messages (4 Partitions)
 **🏢 Real-World Example (E-commerce):**
 
 ```
+
+
 Order Topic → Consumer Group 1 (Inventory Service) ← Updates stock
             → Consumer Group 2 (Payment Service)   ← Processes payment
             → Consumer Group 3 (Email Service)     ← Sends confirmation
             → Consumer Group 4 (Analytics Service) ← Records metrics
+
+
 ```
 
 Each service gets the same order data but processes it for different purposes!
@@ -216,6 +234,8 @@ Each service gets the same order data but processes it for different purposes!
 #### Scenario 1: 1 Consumer, 4 Partitions
 
 ```
+
+
 Topic with 4 Partitions:
 ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐
 │ P0  │ │ P1  │ │ P2  │ │ P3  │
@@ -227,6 +247,8 @@ Topic with 4 Partitions:
             ┌──────────┐
             │Consumer 1│ (handles ALL partitions)
             └──────────┘
+
+
 ```
 
 **Result:** Consumer 1 handles all 4 partitions (P0, P1, P2, P3)
@@ -234,6 +256,8 @@ Topic with 4 Partitions:
 #### Scenario 2: 2 Consumers, 4 Partitions
 
 ```
+
+
 Topic with 4 Partitions:
 ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐
 │ P0  │ │ P1  │ │ P2  │ │ P3  │
@@ -245,6 +269,8 @@ Topic with 4 Partitions:
 │Consumer 1│    │Consumer 2│
 │ (P0, P1) │    │ (P2, P3) │
 └──────────┘    └──────────┘
+
+
 ```
 
 **Result:** Each consumer handles 2 partitions (Auto-balanced)
@@ -252,6 +278,8 @@ Topic with 4 Partitions:
 #### Scenario 3: 3 Consumers, 4 Partitions
 
 ```
+
+
 Topic with 4 Partitions:
 ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐
 │ P0  │ │ P1  │ │ P2  │ │ P3  │
@@ -264,6 +292,8 @@ Topic with 4 Partitions:
 │ (P0, P1) │ │    2    │ │    3    │
 └──────────┘ │  (P2)   │ │  (P3)   │
              └─────────┘ └─────────┘
+
+
 ```
 
 **Result:** Consumer 1 gets 2 partitions, Consumer 2 and 3 get 1 partition each
@@ -271,6 +301,8 @@ Topic with 4 Partitions:
 #### Scenario 4: 4 Consumers, 4 Partitions (Perfect Balance!)
 
 ```
+
+
 Topic with 4 Partitions:
 ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐
 │ P0  │ │ P1  │ │ P2  │ │ P3  │
@@ -281,6 +313,8 @@ Topic with 4 Partitions:
 │Con 1│ │Con 2│ │Con 3│ │Con 4│
 │(P0) │ │(P1) │ │(P2) │ │(P3) │
 └─────┘ └─────┘ └─────┘ └─────┘
+
+
 ```
 
 **Result:** Perfect balance - each consumer gets exactly 1 partition
@@ -288,6 +322,8 @@ Topic with 4 Partitions:
 #### Scenario 5: 5 Consumers, 4 Partitions (1 Consumer IDLE!)
 
 ```
+
+
 Topic with 4 Partitions:
 ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐
 │ P0  │ │ P1  │ │ P2  │ │ P3  │
@@ -299,6 +335,8 @@ Topic with 4 Partitions:
 │(P0) │ │(P1) │ │(P2) │ │(P3) │ │    5    │
 └─────┘ └─────┘ └─────┘ └─────┘ │ (IDLE)  │
                                 └─────────┘
+
+
 ```
 
 **Result:** Consumer 5 remains IDLE (no work to do)
@@ -313,6 +351,8 @@ Topic with 4 Partitions:
 - Each group processes data independently
 
 ```
+
+
                     Topic: driver-locations
          ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐
          │ P0  │ │ P1  │ │ P2  │ │ P3  │
@@ -337,6 +377,8 @@ Topic with 4 Partitions:
     │       │  (All P0-P3)    │                │
     │       └─────────────────┘                │
     └──────────────────────────────────────────┘
+
+
 ```
 
 **Use Case:**
@@ -356,6 +398,8 @@ Topic with 4 Partitions:
 ### Queue Behavior in Kafka (Within Same Group)
 
 ```
+
+
 Producer ──┐
            │
 Producer ──┤──── Topic (4 Partitions) ──── Consumer Group (4 Consumers)
@@ -364,6 +408,8 @@ Producer ──┘                                   ├─ Consumer 1 ← P0
                                                ├─ Consumer 2 ← P1
                                                ├─ Consumer 3 ← P2
                                                └─ Consumer 4 ← P3
+
+
 ```
 
 📌 Each partition goes to ONLY ONE consumer in the group  
@@ -404,6 +450,8 @@ Even in the "queue" case above (1 consumer per partition), if you add **another 
 ### Pub/Sub Behavior in Kafka (Different Groups)
 
 ```
+
+
 Producer ──┐
            │
 Producer ──┤──── Topic ─────┬──── Consumer Group 1 (Location Service)
@@ -411,6 +459,8 @@ Producer ──┤──── Topic ─────┬──── Consumer Gro
 Producer ──┘                ├──── Consumer Group 2 (Analytics Service)
                             │
                             └──── Consumer Group 3 (Billing Service)
+
+
 ```
 
 📌 Each GROUP gets ALL messages  
@@ -471,7 +521,9 @@ runProducer().catch(console.error)
 - Kafka **rejects** the message with error:
 
 ```
+
 UNKNOWN_TOPIC_OR_PARTITION
+
 ```
 
 - ❌ You must manually create topic first using Kafka UI or CLI
@@ -513,12 +565,14 @@ runConsumer().catch(console.error)
 **Step 2:** Start consumer first:
 
 ```bash
+
 node consumer.js
 ```
 
 **Step 3:** In another terminal, start producer:
 
 ```bash
+
 node producer.js
 ```
 
@@ -527,21 +581,25 @@ node producer.js
 **Producer Terminal:**
 
 ```
+
 ✅ Sent message 0
 ✅ Sent message 1
 ✅ Sent message 2
 ✅ Sent message 3
 ✅ Sent message 4
+
 ```
 
 **Consumer Terminal:**
 
 ```
+
 📩 Received: topic=demo-topic partition=0 key=key-0 value=Hello KafkaJS 0
 📩 Received: topic=demo-topic partition=0 key=key-1 value=Hello KafkaJS 1
 📩 Received: topic=demo-topic partition=0 key=key-2 value=Hello KafkaJS 2
 📩 Received: topic=demo-topic partition=0 key=key-3 value=Hello KafkaJS 3
 📩 Received: topic=demo-topic partition=0 key=key-4 value=Hello KafkaJS 4
+
 ```
 
 ### 🔹 Key Points to Notice
@@ -566,8 +624,12 @@ const consumer = kafka.consumer({ groupId: 'demo-group-2' }) // Different group!
 Run both consumers and one producer - both consumers will receive ALL messages (Pub/Sub behavior)!
 
 ```
+
+
 Producer → Topic ┬→ Consumer Group 1 (gets all messages)
                  └→ Consumer Group 2 (gets all messages)
+
+
 ```
 
 ---
@@ -577,6 +639,8 @@ Producer → Topic ┬→ Consumer Group 1 (gets all messages)
 ### Old Architecture (With ZooKeeper) - Before 2021
 
 ```
+
+
           ┌─────────────────┐
           │   ZooKeeper     │ ← External dependency
           │   Cluster       │   (Extra complexity)
@@ -589,6 +653,8 @@ Producer → Topic ┬→ Consumer Group 1 (gets all messages)
 │  Kafka   │ │  Kafka   │ │  Kafka   │
 │ Broker 1 │ │ Broker 2 │ │ Broker 3 │
 └──────────┘ └──────────┘ └──────────┘
+
+
 ```
 
 ZooKeeper was needed for:  
@@ -599,6 +665,8 @@ ZooKeeper was needed for:
 ### New Architecture (KRaft Mode) - After 2021
 
 ```
+
+
 ┌─────────────────────────────────────────────┐
 │             Kafka Cluster (KRaft Mode)     │
 │                                             │
@@ -608,6 +676,8 @@ ZooKeeper was needed for:
 │ │Controller│ │          │ │          │     │
 │ └──────────┘ └──────────┘ └──────────┘     │
 └─────────────────────────────────────────────┘
+
+
 ```
 
 KRaft Benefits:
@@ -703,6 +773,8 @@ docker-compose down
 Let's see how Uber actually uses Kafka:
 
 ```
+
+
 Step 1: Driver sends location
 ┌─────────────┐
 │ Driver App  │ ──── GPS Location ────┐
@@ -729,6 +801,8 @@ Step 3: Multiple services consume    │
 │  Billing    │ Calculate fare
 │  Service    │ based on route
 └─────────────┘
+
+
 ```
 
 **Benefits:**
@@ -745,6 +819,8 @@ Step 3: Multiple services consume    │
 ### 📊 Throughput Comparison
 
 ```
+
+
 Traditional Database: 🐌 Slow
 ┌─────────────────────────────────┐
 │ ▓▓▓ (1000 operations/sec)       │
@@ -755,6 +831,8 @@ Apache Kafka: 🚀 Super Fast
 │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │
 └─────────────────────────────────┘
 (Millions of operations/sec)
+
+
 ```
 
 ### 🔄 Partitions Enable Parallel Processing
