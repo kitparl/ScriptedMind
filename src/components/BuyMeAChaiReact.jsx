@@ -57,7 +57,7 @@ const BuyMeAChai = () => {
 		<div className='upi-button-container'>
 			<h2>Support Us via UPI</h2>
 			<div className='flex items-center justify-center h-screen'>
-				<img src='../assets/images/upi.jpg' alt='UPI Payment' />
+				{/* <img src='../assets/images/upi.jpg' alt='UPI Payment' /> */}
 			</div>
 			<p>Enter an amount or select from the options below:</p>
 			<input
