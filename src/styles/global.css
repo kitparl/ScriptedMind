@@ -7,67 +7,26 @@
 		@apply text-base;
 	}
 	
-	/* Enhanced Code Block Styling with Responsive Fixes */
+	/* Enhanced Code Block Styling */
 	.prose pre {
 		@apply bg-gray-50 border border-gray-200 rounded-lg p-4 my-4 shadow-sm;
 		font-size: 14px;
 		line-height: 1.6;
-		
-		/* Responsive Fixes */
 		overflow-x: auto;
 		overflow-y: hidden;
 		white-space: pre;
 		word-wrap: normal;
-		
-		/* Mobile-specific adjustments */
-		@screen sm {
-			font-size: 13px;
-		}
-		
-		@screen md {
-			font-size: 14px;
-		}
-	}
-	
-	/* Mobile Responsive Code Blocks */
-	@media (max-width: 640px) {
-		.prose pre {
-			@apply p-3 rounded-md text-xs mx-0;
-			/* Smaller padding and font on mobile */
-			max-width: 100vw;
-			width: calc(100vw - 2rem); /* Account for page margins */
-			margin-left: 0;
-			margin-right: 0;
-		}
-		
-		/* ASCII diagrams on mobile - make them scrollable */
-		.prose pre:has(code:not([class*="language-"])) {
-			font-size: 10px;
-			line-height: 1.2;
-			white-space: pre;
-			overflow-x: scroll;
-		}
 	}
 	
 	/* Inline code styling */
 	.prose :not(pre) > code {
 		@apply bg-gray-100 text-red-600 px-2 py-1 rounded text-sm border border-gray-200 font-medium;
-		
-		/* Responsive inline code */
-		@media (max-width: 640px) {
-			@apply text-xs px-1;
-		}
 	}
 	
 	/* ASCII diagrams specific styling */
 	.prose pre:has(code:not([class*="language-"])) {
 		@apply bg-white border-2 border-gray-300 font-mono leading-tight text-gray-800;
 		font-size: 12px;
-		
-		@media (max-width: 640px) {
-			font-size: 9px;
-			line-height: 1.1;
-		}
 	}
 	
 	/* prose styles here */
@@ -98,11 +57,9 @@
 }
 
 @layer components {
-	/* Better scrollbar for mobile code blocks */
+	/* Better scrollbar for code blocks */
 	.prose pre {
 		transition: all 0.2s ease;
-		
-		/* Custom scrollbar */
 		scrollbar-width: thin;
 		scrollbar-color: #cbd5e1 transparent;
 	}
@@ -125,12 +82,6 @@
 	
 	.prose pre:hover {
 		@apply shadow-md;
-		
-		/* Disable hover effects on mobile to prevent issues */
-		@media (max-width: 640px) {
-			transform: none;
-			box-shadow: inherit;
-		}
 	}
 	
 	/* Language-specific styling */
@@ -165,23 +116,41 @@
 	}
 }
 
-/* Additional Mobile Optimizations - Keep font sizes intact */
+/* Mobile Responsive Fixes - Pure CSS without @apply inside @media */
+@media (max-width: 640px) {
+	.prose pre {
+		padding: 12px;
+		border-radius: 6px;
+		margin-left: 0;
+		margin-right: 0;
+		max-width: 100vw;
+		width: calc(100vw - 2rem);
+	}
+	
+	.prose pre:has(code:not([class*="language-"])) {
+		white-space: pre;
+		overflow-x: scroll;
+	}
+	
+	/* Disable hover effects on mobile */
+	.prose pre:hover {
+		transform: none;
+		box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+	}
+}
+
 @media (max-width: 480px) {
 	.prose {
-		/* Ensure prose container doesn't overflow */
 		max-width: 100%;
 		overflow-x: hidden;
 	}
 	
 	.prose pre {
-		/* Keep original font-size, just adjust spacing */
-		padding: 12px;
-		border-radius: 6px;
+		padding: 10px;
+		border-radius: 4px;
 	}
 	
-	/* ASCII art - keep readable, just ensure it's scrollable */
 	.prose pre:has(code:not([class*="language-"])) {
-		/* Keep font-size: 12px - don't make it smaller */
 		overflow-x: auto;
 	}
 }
