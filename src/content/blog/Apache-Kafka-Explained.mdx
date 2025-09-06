@@ -31,18 +31,20 @@ Let's understand with a simple example. Suppose there is a company called **Uber
 4. This location data needs to be:
    - Saved in database for analysis
    - Sent to customer for live tracking
+   - etc
 
 **Let's do the math:**
 
-- If it takes 30 minutes to reach customer
+- Suppose a driver sends location every second
+- If it takes 30 minutes to reach customer location
 - 30 minutes = 30 × 60 = **1800 seconds**
 - This means **1800 records** will be saved in database for just one ride!
 
 **Now imagine:**
 
-- 1000 active rides at the same time
+- 1,00,000 (1Lakh) active rides at the same time
 - Each sending location every second
-- Database will receive **1000 × 1800 = 1,800,000 records** in 30 minutes
+- Database will receive insertions **100000 × 1800 = 18,000,000 (18 crore) records** in 30 minutes
 - Database operations per second will be very high
 - System might crash due to high load
 
@@ -64,7 +66,7 @@ Let's understand with a simple example. Suppose there is a company called **Uber
 
 **What is Kafka?**
 
-- **Primary Identity**: Distributed Event Streaming Platform
+- **Primary Identity**: Distributed Event Streaming Platform (A system that captures and shares data at the very moment it happens)
 - **Secondary Use**: Can work as a Message Broker
 - Kafka has **very high throughput** (millions of events per second)
 - It is **NOT** a replacement for database
@@ -73,8 +75,8 @@ Let's understand with a simple example. Suppose there is a company called **Uber
 
 **Key Difference from Traditional Message Brokers:**
 
-- **Message Broker**: Messages deleted after consumption ❌
-- **Event Streaming**: Events stored persistently, can be replayed ✅
+- **Message Broker**: Messages deleted after consumption
+- **Event Streaming**: Events stored persistently, can be replayed
 
 **How Kafka Helps:**
 
@@ -99,7 +101,7 @@ Let's understand with a simple example. Suppose there is a company called **Uber
 ┌─────────┐
 │ Topic 1 │ (driver-locations)
 │ Topic 2 │ (ride-requests)  
- │ Topic 3 │ (payments)
+│ Topic 3 │ (payments)
 └─────────┘
 ```
 
@@ -116,6 +118,7 @@ Let's understand with a simple example. Suppose there is a company called **Uber
 
 - Topics are like folders where similar messages are stored
 - Example topics: "driver-locations", "payment-data", "ride-bookings"
+- Definition: A topic is like a category or channel where messages are stored in Kafka.
 
 **What are Partitions?**
 
@@ -240,7 +243,7 @@ Topic with 4 Partitions:
 │ │
 ┌──────────┐ ┌──────────┐
 │Consumer 1│ │Consumer 2│
-│(P0, P1) │ │(P2, P3) │
+│ (P0, P1) │ │ (P2, P3) │
 └──────────┘ └──────────┘
 ```
 
@@ -257,8 +260,8 @@ Topic with 4 Partitions:
 └───────┘ │ │
 │ │ │
 ┌──────────┐ ┌─────────┐ ┌─────────┐
-│Consumer 1│ │Consumer│ │Consumer │
-│(P0, P1) │ │ 2 │ │ 3 │
+│Consumer 1│ │Consumer │ │Consumer │
+│ (P0, P1) │ │ 2 │ │ 3 │
 └──────────┘ │ (P2) │ │ (P3) │
 └─────────┘ └─────────┘
 ```
@@ -310,31 +313,30 @@ Topic with 4 Partitions:
 - Each group processes data independently
 
 ```md
-                Topic: driver-locations
-     ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐
-     │ P0  │ │ P1  │ │ P2  │ │ P3  │
-     └─────┘ └─────┘ └─────┘ └─────┘
-         │       │       │       │
-         ├───────┼───────┼───────┤ (Both groups read same data)
-         │       │       │       │
-
-┌────────┴───────┴───────┴───────┴────────┐
-│ Consumer Group 1 │
-│ (Location Service) │
-│ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ │
-│ │Con 1│ │Con 2│ │Con 3│ │Con 4│ │
-│ │(P0) │ │(P1) │ │(P2) │ │(P3) │ │
-│ └─────┘ └─────┘ └─────┘ └─────┘ │
-└──────────────────────────────────────────┘
-│ │ │ │
-┌────────┴───────┴───────┴───────┴────────┐
-│ Consumer Group 2 │
-│ (Analytics Service) │
-│ ┌─────────────┐ │
-│ │ Consumer 1 │ │
-│ │ (All P0-P3) │ │
-│ └─────────────┘ │
-└──────────────────────────────────────────┘
+                    Topic: driver-locations
+         ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐
+         │ P0  │ │ P1  │ │ P2  │ │ P3  │
+         └─────┘ └─────┘ └─────┘ └─────┘
+             │       │       │       │
+             ├───────┼───────┼───────┤ (Both groups read same data)
+             │       │       │       │
+    ┌────────┴───────┴───────┴───────┴────────┐
+    │           Consumer Group 1               │
+    │         (Location Service)               │
+    │  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐         │
+    │  │Con 1│ │Con 2│ │Con 3│ │Con 4│         │
+    │  │(P0) │ │(P1) │ │(P2) │ │(P3) │         │
+    │  └─────┘ └─────┘ └─────┘ └─────┘         │
+    └──────────────────────────────────────────┘
+             │       │       │       │
+    ┌────────┴───────┴───────┴───────┴────────┐
+    │           Consumer Group 2               │
+    │        (Analytics Service)               │
+    │       ┌─────────────────┐                │
+    │       │   Consumer 1    │                │
+    │       │  (All P0-P3)    │                │
+    │       └─────────────────┘                │
+    └──────────────────────────────────────────┘
 ```
 
 **Use Case:**
@@ -356,18 +358,18 @@ Topic with 4 Partitions:
 ```md
 Producer ──┐
 │
-Producer ──┤ ──── Topic (4 Partitions) ──── Consumer Group (4 Consumers)
+Producer ──┤──── Topic (4 Partitions) ──── Consumer Group (4 Consumers)
 │ P0, P1, P2, P3 │
-Producer ──┘ │ ├─ Consumer 1 ← P0
-│ ├─ Consumer 2 ← P1
-│ ├─ Consumer 3 ← P2
-└──────────────────────└─ Consumer 4 ← P3
-
-📌 Each partition goes to ONLY ONE consumer in the group
-📌 Each consumer handles exactly one partition (perfect balance!)
-📌 Work is divided among consumers (no duplication)
-📌 Perfect for task distribution
+Producer ──┘ ├─ Consumer 1 ← P0
+├─ Consumer 2 ← P1
+├─ Consumer 3 ← P2
+└─ Consumer 4 ← P3
 ```
+
+📌 Each partition goes to ONLY ONE consumer in the group  
+📌 Each consumer handles exactly one partition (perfect balance!)  
+📌 Work is divided among consumers (no duplication)  
+📌 Perfect for task distribution
 
 **✅ Ideal Scenario: Topic Partitions = Consumer Count (4 = 4)**
 
@@ -382,7 +384,7 @@ Producer ──┘ │ ├─ Consumer 1 ← P0
   - No duplication inside the group.
     ✅ **Queue-like behavior achieved.**
 
-**Case 2: Consumers \< Partitions (Some consumers handle more)**
+**Case 2: Consumers < Partitions (Some consumers handle more)**
 
 - Some consumers handle multiple partitions.
 - Still queue-like, but **less parallelism** (some consumers get more load).
@@ -404,16 +406,16 @@ Even in the "queue" case above (1 consumer per partition), if you add **another 
 ```md
 Producer ──┐
 │
-Producer ──┤ ──── Topic ─────┬──── Consumer Group 1 (Location Service)
+Producer ──┤──── Topic ─────┬──── Consumer Group 1 (Location Service)
 │ │
 Producer ──┘ ├──── Consumer Group 2 (Analytics Service)  
  │
 └──── Consumer Group 3 (Billing Service)
-
-📌 Each GROUP gets ALL messages
-📌 Same message goes to all groups
-📌 Perfect for broadcasting information
 ```
+
+📌 Each GROUP gets ALL messages  
+📌 Same message goes to all groups  
+📌 Perfect for broadcasting information
 
 ---
 
@@ -564,8 +566,8 @@ const consumer = kafka.consumer({ groupId: 'demo-group-2' }) // Different group!
 Run both consumers and one producer - both consumers will receive ALL messages (Pub/Sub behavior)!
 
 ```md
-Producer → Topic → Consumer Group 1 (gets all messages)
-→ Consumer Group 2 (gets all messages)
+Producer → Topic ┬→ Consumer Group 1 (gets all messages)
+└→ Consumer Group 2 (gets all messages)
 ```
 
 ---
@@ -587,32 +589,34 @@ Producer → Topic → Consumer Group 1 (gets all messages)
 │ Kafka │ │ Kafka │ │ Kafka │
 │ Broker 1 │ │ Broker 2 │ │ Broker 3 │
 └──────────┘ └──────────┘ └──────────┘
+```
 
-ZooKeeper was needed for:
-✓ Managing Kafka brokers
+ZooKeeper was needed for:  
+✓ Managing Kafka brokers  
 ✓ Storing configuration data  
 ✓ Leader election for partitions
-```
 
 ### New Architecture (KRaft Mode) - After 2021
 
-```md
+```
 ┌─────────────────────────────────────────────┐
-│ Kafka Cluster (KRaft Mode) │
-│ │
-│ ┌──────────┐ ┌──────────┐ ┌──────────┐ │
-│ │ Kafka │ │ Kafka │ │ Kafka │ │
-│ │ Broker 1 │ │ Broker 2 │ │ Broker 3 │ │
-│ │Controller│ │ │ │ │ │
-│ └──────────┘ └──────────┘ └──────────┘ │
+│             Kafka Cluster (KRaft Mode)     │
+│                                             │
+│ ┌──────────┐ ┌──────────┐ ┌──────────┐     │
+│ │  Kafka   │ │  Kafka   │ │  Kafka   │     │
+│ │ Broker 1 │ │ Broker 2 │ │ Broker 3 │     │
+│ │Controller│ │          │ │          │     │
+│ └──────────┘ └──────────┘ └──────────┘     │
 └─────────────────────────────────────────────┘
+```
 
 KRaft Benefits:
 ✓ No external ZooKeeper needed
 ✓ Simpler deployment
 ✓ Better performance  
 ✓ Self-managing
-```
+
+````
 
 ---
 
@@ -670,7 +674,7 @@ services:
 networks:
   kafka-network:
     driver: bridge
-```
+````
 
 ### How to Run
 
@@ -708,22 +712,22 @@ Step 1: Driver sends location
 ▼
 Step 2: Data goes to Kafka ┌────────┐
 ┌─────────────┐ │ Kafka │
-│ Producer │ ──── Location ───▶│ Topic │
+│ Producer │ ──── Location ───▶ │ Topic │
 │ (Driver API)│ Message └────┬───┘
 └─────────────┘ │
 │
 Step 3: Multiple services consume │
-┌─────────────┐ ◀──────────────────────┤
+┌─────────────┐ ◀────────────────────────┤
 │ Customer │ Live location │
 │ App API │ updates │
 └─────────────┘ │
 │
-┌─────────────┐ ◀──────────────────────┤
+┌─────────────┐ ◀────────────────────────┤
 │ Analytics │ Store location │
 │ Service │ for reporting │
 └─────────────┘ │
 │
-┌─────────────┐ ◀──────────────────────┘
+┌─────────────┐ ◀────────────────────────┘
 │ Billing │ Calculate fare
 │ Service │ based on route
 └─────────────┘
@@ -865,6 +869,6 @@ App Logs → Kafka → Monitoring + Storage + Alerts
 
 ### Q6: Does Kafka act as a message broker or distributed event streaming platform?
 
-**Answer**: Kafka is **primarily a distributed event streaming platform** (A system that captures and shares data at the very moment it happens), not just a message broker. Unlike traditional message brokers that delete messages after consumption, Kafka stores events persistently and allows multiple consumers to replay the same events. This enables real-time analytics, stream processing, and event-driven architectures. While it can work as a message broker, that's just one of its capabilities.
+**Answer**: Kafka is **primarily a distributed event streaming platform**, not just a message broker. Unlike traditional message brokers that delete messages after consumption, Kafka stores events persistently and allows multiple consumers to replay the same events. This enables real-time analytics, stream processing, and event-driven architectures. While it can work as a message broker, that's just one of its capabilities.
 
 ---
