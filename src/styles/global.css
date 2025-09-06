@@ -3,41 +3,79 @@
 @tailwind utilities;
 
 @layer base {
-	/* body {
-		transition: background-color 0.5s ease;
-	} */
 	.prose code {
 		@apply text-base;
 	}
 	
-	/* Enhanced Code Block Styling */
+	/* Enhanced Code Block Styling with Responsive Fixes */
 	.prose pre {
-		@apply bg-gray-50 border border-gray-200 rounded-lg p-4 my-4 overflow-x-auto shadow-sm;
+		@apply bg-gray-50 border border-gray-200 rounded-lg p-4 my-4 shadow-sm;
 		font-size: 14px;
 		line-height: 1.6;
+		
+		/* Responsive Fixes */
+		overflow-x: auto;
+		overflow-y: hidden;
+		white-space: pre;
+		word-wrap: normal;
+		
+		/* Mobile-specific adjustments */
+		@screen sm {
+			font-size: 13px;
+		}
+		
+		@screen md {
+			font-size: 14px;
+		}
+	}
+	
+	/* Mobile Responsive Code Blocks */
+	@media (max-width: 640px) {
+		.prose pre {
+			@apply p-3 rounded-md text-xs mx-0;
+			/* Smaller padding and font on mobile */
+			max-width: 100vw;
+			width: calc(100vw - 2rem); /* Account for page margins */
+			margin-left: 0;
+			margin-right: 0;
+		}
+		
+		/* ASCII diagrams on mobile - make them scrollable */
+		.prose pre:has(code:not([class*="language-"])) {
+			font-size: 10px;
+			line-height: 1.2;
+			white-space: pre;
+			overflow-x: scroll;
+		}
 	}
 	
 	/* Inline code styling */
 	.prose :not(pre) > code {
 		@apply bg-gray-100 text-red-600 px-2 py-1 rounded text-sm border border-gray-200 font-medium;
+		
+		/* Responsive inline code */
+		@media (max-width: 640px) {
+			@apply text-xs px-1;
+		}
 	}
 	
 	/* ASCII diagrams specific styling */
 	.prose pre:has(code:not([class*="language-"])) {
-		@apply bg-white border-2 border-gray-300 font-mono text-xs leading-tight text-gray-800;
+		@apply bg-white border-2 border-gray-300 font-mono leading-tight text-gray-800;
+		font-size: 12px;
+		
+		@media (max-width: 640px) {
+			font-size: 9px;
+			line-height: 1.1;
+		}
 	}
 	
 	/* prose styles here */
-	.prose h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
+	.prose h1, h2, h3, h4, h5, h6 {
 		@apply text-zinc-800 dark:text-zinc-100 !important;
 	}
 	
-	/* Dark mode Shiki styling - Enhanced */
+	/* Dark mode Shiki styling */
 	html.dark .shiki,
 	html.dark .shiki span {
 		color: var(--shiki-dark) !important;
@@ -60,16 +98,42 @@
 }
 
 @layer components {
-	/* Better code block with hover effects */
+	/* Better scrollbar for mobile code blocks */
 	.prose pre {
 		transition: all 0.2s ease;
+		
+		/* Custom scrollbar */
+		scrollbar-width: thin;
+		scrollbar-color: #cbd5e1 transparent;
+	}
+	
+	.prose pre::-webkit-scrollbar {
+		height: 6px;
+	}
+	
+	.prose pre::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	
+	.prose pre::-webkit-scrollbar-thumb {
+		@apply bg-gray-300 rounded-full;
+	}
+	
+	html.dark .prose pre::-webkit-scrollbar-thumb {
+		@apply bg-gray-600;
 	}
 	
 	.prose pre:hover {
-		@apply shadow-md transform -translate-y-0.5;
+		@apply shadow-md;
+		
+		/* Disable hover effects on mobile to prevent issues */
+		@media (max-width: 640px) {
+			transform: none;
+			box-shadow: inherit;
+		}
 	}
 	
-	/* Language-specific styling using CSS custom properties */
+	/* Language-specific styling */
 	.prose pre[data-language="javascript"],
 	.prose pre[data-language="js"] {
 		@apply border-blue-200 bg-blue-50;
@@ -98,6 +162,27 @@
 	html.dark .prose pre[data-language="yaml"],
 	html.dark .prose pre[data-language="yml"] {
 		@apply border-orange-800 bg-orange-950;
+	}
+}
+
+/* Additional Mobile Optimizations - Keep font sizes intact */
+@media (max-width: 480px) {
+	.prose {
+		/* Ensure prose container doesn't overflow */
+		max-width: 100%;
+		overflow-x: hidden;
+	}
+	
+	.prose pre {
+		/* Keep original font-size, just adjust spacing */
+		padding: 12px;
+		border-radius: 6px;
+	}
+	
+	/* ASCII art - keep readable, just ensure it's scrollable */
+	.prose pre:has(code:not([class*="language-"])) {
+		/* Keep font-size: 12px - don't make it smaller */
+		overflow-x: auto;
 	}
 }
 
