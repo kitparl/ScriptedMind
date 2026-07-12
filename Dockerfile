@@ -17,6 +17,6 @@ COPY . .
 # Build the project
 RUN pnpm run build
 
-EXPOSE 3003
+EXPOSE 4321
 
-CMD ["pnpm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3003"]
+CMD ["pnpm", "exec", "astro", "preview", "--host", "0.0.0.0", "--port", "4321"]
