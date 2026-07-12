@@ -37,5 +37,8 @@ export default defineConfig({
       noDiscovery: true,
       include: [],
     },
+    preview: {
+      allowedHosts: ['blogs.bhosdike.tech', '.bhosdike.tech'],
+    },
   },
 })
