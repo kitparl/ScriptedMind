@@ -2,14 +2,21 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+# Install pnpm globally
+RUN npm install -g pnpm
 
-RUN npm install
+# Copy package files
+COPY package.json pnpm-lock.yaml ./
 
+# Install dependencies with pnpm
+RUN pnpm install --frozen-lockfile
+
+# Copy source
 COPY . .
 
-RUN npm run build
+# Build the project
+RUN pnpm run build
 
 EXPOSE 3003
 
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3003"]
+CMD ["pnpm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3003"]
