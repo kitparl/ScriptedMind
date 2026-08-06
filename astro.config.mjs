@@ -5,9 +5,9 @@ import tailwind from '@astrojs/tailwind'
 import react from '@astrojs/react';
 
 export default defineConfig({
-  output: 'static', // Keep this for GitHub Pages
+  output: 'static',
   trailingSlash: 'always',
-  site: 'https://kitparl.site',
+  site: 'https://blogs.bhosdike.tech',
   integrations: [
     react(),
     mdx({

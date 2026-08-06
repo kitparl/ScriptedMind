@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 FROM node:20-alpine AS build
 
 WORKDIR /app
@@ -10,7 +11,11 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-RUN pnpm run build
+ARG NEXT_PUBLIC_TINA_CLIENT_ID
+ENV NEXT_PUBLIC_TINA_CLIENT_ID=$NEXT_PUBLIC_TINA_CLIENT_ID
+
+RUN --mount=type=secret,id=tina_token \
+    TINA_TOKEN="$(cat /run/secrets/tina_token)" pnpm run build
 
 FROM caddy:alpine
 

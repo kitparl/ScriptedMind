@@ -7,9 +7,6 @@ dist/
 node_modules/
 .pnpm-store/
 
-
-tina-lock.json
-
 # logs
 npm-debug.log*
 yarn-debug.log*

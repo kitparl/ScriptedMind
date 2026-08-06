@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kitparl.site
+Sitemap: https://blogs.bhosdike.tech/sitemap-index.xml
