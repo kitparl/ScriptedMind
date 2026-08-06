@@ -1,11 +1,12 @@
 ---
 import ArrowLeft from './icons/ArrowLeft.astro'
 import ArrowRight from './icons/ArrowRight.astro'
+import PostsSkeleton from './PostsSkeleton.astro'
 
 const { page } = Astro.props
 ---
 
-<div class='flex gap-5 md:gap-1 justify-around md:justify-end'>
+<div class='flex gap-5 md:gap-1 justify-around md:justify-end' data-pagination>
 	<!-- Previous Button -->
 	{
 		page.start > 0 && (
@@ -35,3 +36,21 @@ const { page } = Astro.props
 		)
 	}
 </div>
+
+<template data-posts-skeleton>
+	<PostsSkeleton />
+</template>
+
+<script>
+	// Delegated on document so it survives the view-transition DOM swap.
+	document.addEventListener('click', (event) => {
+		const link = (event.target as Element).closest('[data-pagination] a')
+		if (!link) return
+
+		const grid = document.querySelector('[data-posts-grid]')
+		const skeleton = document.querySelector<HTMLTemplateElement>('[data-posts-skeleton]')
+		if (!grid || !skeleton) return
+
+		grid.replaceWith(skeleton.content.cloneNode(true))
+	})
+</script>
