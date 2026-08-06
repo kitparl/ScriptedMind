@@ -1,12 +1,17 @@
 ---
 import ListCategories from '@/components/ListCategories'
 import ListPosts from '@/components/ListPosts'
+import Pagination from '@/components/Pagination'
 import TitlePage from '@/components/TitlePage'
 import BaseLayout from '@/layouts/BaseLayout'
+import { siteConfig } from '@/data/site.config'
 import { getPosts } from '@/utils'
 
-const MAX_POSTS = 5 // max number of posts to show on the home page
-const posts = await getPosts(MAX_POSTS)
+export async function getStaticPaths({ paginate }: any) {
+	return paginate(await getPosts(), { pageSize: siteConfig.paginationSize })
+}
+
+const { page } = Astro.props
 ---
 
 <BaseLayout title='Home'>
@@ -15,8 +20,9 @@ const posts = await getPosts(MAX_POSTS)
 
 	<div>
 		<h2 class='text-lg font-medium tracking-wide text-end'>Latest Posts</h2>
-		<ListPosts FirstBig={true} posts={posts} />
+		<ListPosts FirstBig={page.currentPage === 1} posts={page.data} />
 	</div>
+	<Pagination page={page} />
 </BaseLayout>
 
 <script>

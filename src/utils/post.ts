@@ -1,9 +1,8 @@
 import { getCollection } from 'astro:content'
 
 export const getCategories = async () => {
-	const posts = await getCollection('blog')
-	const categories = new Set(posts.map((post) => post.data.category))
-	return Array.from(categories)
+	const posts = await getPosts()
+	return Array.from(new Set(posts.map((post) => post.data.category)))
 }
 
 export const getPosts = async (max?: number) => {

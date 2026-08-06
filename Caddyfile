@@ -1,0 +1,6 @@
+:4321 {
+	root * /srv
+	encode gzip zstd
+	try_files {path} {path}/ {path}/index.html
+	file_server
+}

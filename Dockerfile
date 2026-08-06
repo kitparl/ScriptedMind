@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
@@ -12,6 +12,9 @@ COPY . .
 
 RUN pnpm run build
 
-EXPOSE 4321
+FROM caddy:alpine
 
-CMD ["pnpm", "exec", "vite", "preview", "--host", "0.0.0.0", "--port", "4321"]
+COPY --from=build /app/dist /srv
+COPY Caddyfile /etc/caddy/Caddyfile
+
+EXPOSE 4321
