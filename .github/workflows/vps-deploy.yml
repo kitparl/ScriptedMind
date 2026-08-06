@@ -11,13 +11,7 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - name: Run deploy script over SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22
-          script: bash /opt/projects/ScriptedMind/scripts/deploy.sh
+      - name: Deploy
+        run: bash /opt/projects/ScriptedMind/scripts/deploy.sh
