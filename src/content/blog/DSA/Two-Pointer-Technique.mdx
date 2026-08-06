@@ -1,11 +1,7 @@
 ---
 heroImage: /src/assets/images/datastructure/two-pointer.png
 category: Programming
-description: >-
-  The two-pointer technique is frequently applied to effectively solve array
-  problems. It is a search method that compares elements referenced by two
-  pointers and updates them as necessary to solve problems involving collections
-  such as arrays and lists.
+description: The two-pointer technique is frequently applied to effectively solve array problems. It is a search method that compares elements referenced by two pointers and updates them as necessary to solve problems involving collections such as arrays and lists.
 pubDate: 2022-06-24T18:30:00.000Z
 tags:
   - algo
@@ -23,10 +19,10 @@ Instead of using loops inside loops (which is slow), we move two pointers throug
 
 ## Common Patterns
 
-**1.** Opposite Ends (start and ends)
+**1.** Opposite Ends (start and end)
 
-- Used for sorted arrays.
-- Eg. Finding pairs with a given sum.
+* Used for sorted arrays.
+* Eg. Finding pairs with a given sum.
 
 ```java
 `java
@@ -61,8 +57,8 @@ public class TwoPointerSum {
 
 **2.** Same Direction (sliding window)
 
-- Both pointers start at the beginning and move forward.
-- E.g. Finding the longest substtring with no repeating character.
+* Both pointers start at the beginning and move forward.
+* E.g. Finding the longest substtring with no repeating character.
 
 ```java
 import java.util.HashSet;
@@ -97,8 +93,8 @@ public class LongestUniqueSubstring {
 
 **3.** Fast and Slow pointers
 
-- One pointer moves faster than the other.
-- eg Detecting cycles in linked lists.
+* One pointer moves faster than the other.
+* eg Detecting cycles in linked lists.
 
 ```java
 class ListNode {
@@ -145,6 +141,6 @@ public class LinkedListCycle {
 
 ## 🎯 Tips
 
-- Works best with sorted data or when a problem involves subarrays, substrings, or pairs.
-- Can reduce time from O(n sqr) to O(n).
-- Often combined with sliding window or prefix sums.
+* Works best with sorted data or when a problem involves subarrays, substrings, or pairs.
+* Can reduce time from O(n sqr) to O(n).
+* Often combined with sliding window or prefix sums.
